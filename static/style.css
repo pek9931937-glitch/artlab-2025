@@ -10,18 +10,15 @@ header {
     color: #fff;
     padding: 20px;
     text-align: center;
+    position: relative;
 }
 
-.container {
-    width: 90%;
-    max-width: 900px;
-    margin: auto;
-    padding: 20px 0 40px 0;
-}
-
-/* 지도교사 박스 */
+/* 지도교사 우측 상단 고정 */
 .teacher-box {
-    margin-top: 10px;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    text-align: center;
 }
 
 #teacher-photo {
@@ -30,29 +27,26 @@ header {
 }
 
 #teacher-photo.small {
-    width: 80px;
+    width: 70px;
     border-radius: 50%;
 }
 
 #teacher-photo.large {
-    width: 280px;
+    width: 260px;
     border-radius: 12px;
 }
 
 .teacher-name {
-    margin-top: 5px;
-    font-size: 14px;
     color: #ddd;
+    font-size: 13px;
+    margin-top: 5px;
 }
 
-/* 제목들 */
-h1 {
-    margin: 0;
-}
-
-h2 {
-    margin-top: 30px;
-    margin-bottom: 10px;
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+    padding: 20px 0 40px 0;
 }
 
 /* 학년 제목 */
@@ -64,7 +58,7 @@ h2 {
     font-weight: bold;
 }
 
-/* 학생 이름 버튼들 */
+/* 학생 이름 버튼 */
 .member-list {
     display: flex;
     flex-wrap: wrap;
@@ -83,35 +77,5 @@ h2 {
 
 .member:hover {
     background: #ddd;
-}
-
-.member:hover {
-    background: #dcdcdc;
-}
-/* 지도교사 우측 상단 고정 */
-.teacher-box {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    text-align: center;
-}
-
-#teacher-photo.small {
-    width: 70px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-#teacher-photo.large {
-    width: 260px;
-    border-radius: 12px;
-    transition: 0.3s;
-}
-
-.teacher-name {
-    color: #ddd;
-    font-size: 13px;
-    margin-top: 5px;
 }
 
