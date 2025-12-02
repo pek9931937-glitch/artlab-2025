@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+import os
 
 app = Flask(__name__)
 
@@ -16,11 +17,13 @@ students = [
 
 @app.route("/")
 def home():
+    # 메인 페이지에서 학생 목록 사용
     return render_template("index.html", students=students)
 
 
 @app.route("/student/<name>")
 def student_page(name):
+    # 이전 / 다음 학생 이름 계산
     prev_name = None
     next_name = None
 
@@ -40,9 +43,6 @@ def student_page(name):
 
 
 if __name__ == "__main__":
-    import os
+    # Render에서 필요로 하는 HOST / PORT 설정
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
-
-
-
