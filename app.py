@@ -1,47 +1,44 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 import os
 
 app = Flask(__name__)
 
-# 학생 이름 목록 (페이지 이동 순서)
-students = [
-    # 1학년 (11명)
-    "곽민지", "김채영", "양희욱", "이현준", "이진주",
-    "김민재", "윤종민", "서희", "이승재", "이난영", "조현아",
-    # 2학년 (3명)
-    "김건우", "민희윤", "배소윤",
-    # 3학년 (1명)
-    "김경원",
-]
+# ------------------------------
+# 학생 데이터
+# ------------------------------
+students = {
+    "1학년": [
+        ("10103", "곽민지"), ("10108", "김채영"), ("10115", "양희옥"),
+        ("10123", "이현준"), ("10224", "이진주"),
+        ("10304", "김민재"), ("10318", "윤종민"),
+        ("10611", "서희"), ("10616", "이승재"),
+        ("10820", "이난영"), ("10832", "조현아")
+    ],
+    "2학년": [
+        ("20203", "김건우"), ("20210", "민희윤"), ("21013", "배소윤")
+    ],
+    "3학년": [
+        ("31131", "김경원")
+    ]
+}
 
-
+# ------------------------------
+# 홈
+# ------------------------------
 @app.route("/")
 def home():
-    # 메인 페이지에서 학생 목록 사용 가능
-    return render_template("index.html")
+    return render_template("index.html", students=students)
 
+# ------------------------------
+# 개별 학생 페이지
+# ------------------------------
+@app.route("/student/<id>/<name>")
+def student(id, name):
+    return render_template("student.html", id=id, name=name)
 
-@app.route("/student/<name>")
-def student_page(name):
-    # 이전 / 다음 학생 이름 계산
-    prev_name = None
-    next_name = None
-
-    if name in students:
-        idx = students.index(name)
-        if idx > 0:
-            prev_name = students[idx - 1]
-        if idx < len(students) - 1:
-            next_name = students[idx + 1]
-
-    return render_template(
-        "student.html",
-        name=name,
-        prev_name=prev_name,
-        next_name=next_name,
-    )
-
-
+# ------------------------------
+# Render 호환 서버 실행
+# ------------------------------
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
