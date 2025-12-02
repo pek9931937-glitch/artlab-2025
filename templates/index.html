@@ -41,6 +41,7 @@
         <h3>1학년</h3>
         {% set first_row = grouped[1][:5] %}
         {% set second_row = grouped[1][5:] %}
+
         <div class="student-row">
           {% for s in first_row %}
             <a class="student-pill"
@@ -49,6 +50,7 @@
             </a>
           {% endfor %}
         </div>
+
         <div class="student-row">
           {% for s in second_row %}
             <a class="student-pill"
@@ -94,7 +96,7 @@
   <!-- 지도교사 팝업 -->
   <div id="teacher-popup" class="popup-overlay">
     <div class="popup-inner">
-      <button class="popup-close teacher-close" type="button">&times;</button>
+      <button class="popup-close" type="button">&times;</button>
       <div class="popup-image-box">
         <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
              alt="지도교사 한지민" class="teacher-popup-image">
