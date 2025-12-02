@@ -10,31 +10,42 @@
 
 <header class="header">
     <a href="/" class="header-left">
-        <img src="{{ url_for('static', filename='gochon-logo.png') }}" class="logo">
+        <img src="{{ url_for('static', filename='gochon-logo.png') }}" class="logo" alt="고촌고 로고">
         <span class="title">ArtLab 2025 Digital Museum</span>
     </a>
 
     <div class="teacher">
-        <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}" id="teacher-photo" class="teacher-img">
+        <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
+             id="teacher-photo" class="teacher-img" alt="지도교사 한지민">
         <div class="teacher-name">지도교사 : 한지민</div>
     </div>
 </header>
 
-<!-- 팝업 -->
+<!-- 공통 팝업 : 선생님 + 작품 설명용 -->
 <div id="popup" class="popup">
-    <img id="popup-img" class="popup-img">
+    <div class="popup-inner">
+        <img id="popup-img" class="popup-img" alt="">
+        <p id="popup-text" class="popup-text"></p>
+    </div>
 </div>
 
 <div class="container">
     <h2>참여 학생 목록입니다.</h2>
 
+    <!-- 1학년: 5명 / 6명 두 줄 -->
     <h3>1학년</h3>
     <div class="grid">
-        {% for num, name in students[:11] %}
+        {% for num, name in students[:5] %}
+        <a class="btn" href="/student/{{ num }}-{{ name }}">{{ num }} {{ name }}</a>
+        {% endfor %}
+    </div>
+    <div class="grid">
+        {% for num, name in students[5:11] %}
         <a class="btn" href="/student/{{ num }}-{{ name }}">{{ num }} {{ name }}</a>
         {% endfor %}
     </div>
 
+    <!-- 2학년 -->
     <h3>2학년</h3>
     <div class="grid">
         {% for num, name in students[11:14] %}
@@ -42,6 +53,7 @@
         {% endfor %}
     </div>
 
+    <!-- 3학년 -->
     <h3>3학년</h3>
     <div class="grid">
         {% for num, name in students[14:] %}
