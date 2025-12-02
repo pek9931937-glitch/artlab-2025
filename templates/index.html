@@ -2,60 +2,94 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ArtLab 2025 Digital Gallery</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-
 <header>
-    <h1>ArtLab 2025 Digital Gallery</h1>
+    <div class="header-inner">
+        <!-- 고촌고 심볼 -->
+        <img src="{{ url_for('static', filename='gochon-logo.png') }}"
+             alt="고촌고등학교 심볼" class="school-logo">
 
-    <!-- 지도교사 우측 상단 -->
-    <div class="teacher-box">
-        <img id="teacher-photo" src="/static/teacher.jpg" class="small">
+        <!-- 사이트 제목 -->
+        <div class="title-block">
+            <h1>ArtLab 2025 Digital Gallery</h1>
+            <p class="subtitle">고촌고 아트랩 디지털 갤러리</p>
+        </div>
+    </div>
+
+    <!-- 지도교사 영역 -->
+    <div class="teacher-area">
+        <div class="teacher-photo-wrapper">
+            <img src="{{ url_for('static', filename='teacher.jpg') }}"
+                 alt="지도교사 한지민"
+                 id="teacher-photo">
+        </div>
         <p class="teacher-name">지도교사 : 한지민</p>
+        <p class="teacher-tip">사진을 클릭하면 확대 / 축소됩니다.</p>
     </div>
 </header>
 
-<div class="container">
-    <h2>아트랩 2025 멤버</h2>
-    <p>이름을 클릭하면 개인 작품 페이지로 이동합니다.</p>
-
-    <div class="member-list">
+<main class="container">
+    <section class="member-section">
+        <h2>아트랩 2025 멤버</h2>
+        <p class="member-guide">
+            이름을 클릭하면 나중에 개인 작품 페이지로 이동하도록 만들 예정입니다.
+        </p>
 
         <!-- 1학년 -->
-        <h3 class="grade-title">1학년</h3>
-        <a class="member" href="/student/곽민지">10103 곽민지</a>
-        <a class="member" href="/student/김채영">10108 김채영</a>
-        <a class="member" href="/student/양희욱">10115 양희욱</a>
-        <a class="member" href="/student/이현준">10123 이현준</a>
-        <a class="member" href="/student/김민재">10304 김민재</a>
-        <a class="member" href="/student/윤종민">10318 윤종민</a>
-        <a class="member" href="/student/서희">10611 서희</a>
-        <a class="member" href="/student/이승재">10616 이승재</a>
-        <a class="member" href="/student/이나연">10820 이나연</a>
-        <a class="member" href="/student/조현아">10832 조현아</a>
+        <div class="grade-block">
+            <h3>1학년</h3>
+            <div class="member-list">
+                <!-- 5명 1열 -->
+                <a class="member" href="#">10103 곽민지</a>
+                <a class="member" href="#">10108 김채영</a>
+                <a class="member" href="#">10115 양희욱</a>
+                <a class="member" href="#">10123 이현준</a>
+                <a class="member" href="#">10224 이진주</a>
+
+                <!-- 5명 2열 -->
+                <a class="member" href="#">10304 김민재</a>
+                <a class="member" href="#">10318 윤종민</a>
+                <a class="member" href="#">10611 서희</a>
+                <a class="member" href="#">10616 이승재</a>
+                <a class="member" href="#">10820 이나연</a>
+
+                <!-- 마지막 1명 (3번째 줄 단독) -->
+                <a class="member" href="#">10832 조현아</a>
+            </div>
+        </div>
 
         <!-- 2학년 -->
-        <h3 class="grade-title">2학년</h3>
-        <a class="member" href="/student/김건우">20203 김건우</a>
-        <a class="member" href="/student/민희윤">20210 민희윤</a>
-        <a class="member" href="/student/배소윤">21013 배소윤</a>
+        <div class="grade-block">
+            <h3>2학년</h3>
+            <div class="member-list">
+                <a class="member" href="#">20203 김건우</a>
+                <a class="member" href="#">20210 민회윤</a>
+                <a class="member" href="#">21013 배소윤</a>
+            </div>
+        </div>
 
         <!-- 3학년 -->
-        <h3 class="grade-title">3학년</h3>
-        <a class="member" href="/student/김경원">31131 김경원</a>
-
-    </div>
-</div>
+        <div class="grade-block">
+            <h3>3학년</h3>
+            <div class="member-list">
+                <a class="member" href="#">31131 김경원</a>
+            </div>
+        </div>
+    </section>
+</main>
 
 <script>
-    const img = document.getElementById("teacher-photo");
-    img.addEventListener("click", () => {
-        img.classList.toggle("large");
-        img.classList.toggle("small");
-    });
+    // 지도교사 사진 확대/축소 토글
+    const teacherPhoto = document.getElementById('teacher-photo');
+    if (teacherPhoto) {
+        teacherPhoto.addEventListener('click', () => {
+            teacherPhoto.classList.toggle('large');
+        });
+    }
 </script>
-
 </body>
 </html>
