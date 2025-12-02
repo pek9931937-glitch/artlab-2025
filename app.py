@@ -37,15 +37,11 @@ def find_student_by_id(student_id):
     return None
 
 
-# -----------------------------
-#  라우트
-# -----------------------------
 @app.route("/")
 def index():
     grouped = {1: [], 2: [], 3: []}
     for s in STUDENTS:
         grouped[s["grade"]].append(s)
-
     return render_template("index.html", grouped=grouped)
 
 
@@ -59,6 +55,7 @@ def student_page(student_id):
     prev_student = STUDENTS[idx - 1] if idx > 0 else None
     next_student = STUDENTS[idx + 1] if idx < len(STUDENTS) - 1 else None
 
+    # 실제 이미지는 나중에 image 필드에 경로 넣으면 됨
     artworks = [
         {
             "no": 1,
