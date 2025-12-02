@@ -1,128 +1,57 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>{{ name }} 작품 갤러리</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta charset="UTF-8">
+<title>{{ name }} 작품 갤러리</title>
+<link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body>
 
-<!-- 상단 헤더 (메인과 동일) -->
-<header class="top-bar">
-    <a href="{{ url_for('home') }}" class="logo-title">
-        <img src="{{ url_for('static', filename='gochon-logo.png') }}"
-             alt="고촌고 로고" class="school-logo">
-        <span class="site-title">ArtLab 2025 Digital Museum</span>
+<header class="header">
+    <a href="/" class="logo-area">
+        <img src="/static/gochon_logo.png" class="logo">
+        <h1 class="title">ArtLab 2025 Digital Museum</h1>
     </a>
-
-    <div class="teacher-info">
-        <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
-             alt="지도교사 한지민" class="teacher-photo" id="teacher-photo">
-        <div class="teacher-name">지도교사 : 한지민</div>
-    </div>
+    <img src="/static/teacher.jpg" class="teacher" onclick="openPopup()">
 </header>
 
-<!-- 선생님 사진 팝업 모달 -->
-<div id="teacher-modal" class="modal">
-    <div class="modal-backdrop"></div>
-    <div class="modal-inner">
-        <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
-             alt="지도교사 한지민 확대" class="modal-image">
+<div id="popup" class="popup" onclick="closePopup()">
+    <img src="/static/teacher.jpg" class="popup-image">
+</div>
+
+<h2 class="gallery-title">{{ name }} 작품 갤러리입니다.</h2>
+
+<!-- 작품 1 / 2 가로 배치 -->
+<div class="art-row">
+    <div class="art-box">
+        <div class="art-image">1번 작품 (이미지 자리)</div>
+        <p class="art-text">1번 작품 제목입니다. 자세한 작품 설명은 추후 업데이트됩니다.</p>
+        <button class="like-btn" onclick="toggleLike(this)">❤️ 좋아요 0</button>
+    </div>
+
+    <div class="art-box">
+        <div class="art-image">2번 작품 (이미지 자리)</div>
+        <p class="art-text">2번 작품 제목입니다. 자세한 작품 설명은 추후 업데이트됩니다.</p>
+        <button class="like-btn" onclick="toggleLike(this)">❤️ 좋아요 0</button>
     </div>
 </div>
 
-<main class="page-container">
-
-    <h2 class="main-title">{{ name }} 작품 갤러리</h2>
-    <p class="intro-text">
-        아래의 두 작품 영역에는 실제 작품 이미지와 작품 설명이 들어갈 예정입니다.
-        현재는 테스트용 문구이며, 작품 제목과 설명은 추후 업데이트될 예정입니다.
-    </p>
-
-    <!-- 작품 1번 / 2번 : 세로 이미지 두 개가 양옆으로 나란히 (가로로 나란히 배치) -->
-    <div class="art-row">
-
-        <!-- 1번 작품 카드 -->
-        <div class="art-card">
-            <div class="art-img">1번 작품 (이미지 자리)</div>
-            <h4 class="art-title">1번 작품 제목 (예시)</h4>
-            <p class="art-desc">
-                이 영역에는 1번 작품의 제목과 상세한 작품 설명이 들어갈 예정입니다.
-                지금은 예시 문장으로 채워져 있습니다.
-            </p>
-            <button class="like-btn" data-liked="false">❤️ 좋아요</button>
-        </div>
-
-        <!-- 2번 작품 카드 -->
-        <div class="art-card">
-            <div class="art-img">2번 작품 (이미지 자리)</div>
-            <h4 class="art-title">2번 작품 제목 (예시)</h4>
-            <p class="art-desc">
-                이 영역에는 2번 작품의 제목과 상세한 작품 설명이 들어갈 예정입니다.
-                지금은 예시 문장으로 채워져 있습니다.
-            </p>
-            <button class="like-btn" data-liked="false">❤️ 좋아요</button>
-        </div>
-
-    </div>
-
-    <!-- 하단 네비게이션 -->
-    <div class="nav-row">
-        {% if prev_name %}
-            <a href="{{ url_for('student_page', name=prev_name) }}" class="nav-btn">
-                ← 이전 학생 ({{ prev_name }})
-            </a>
-        {% endif %}
-
-        <a href="{{ url_for('home') }}" class="nav-btn">홈으로</a>
-
-        {% if next_name %}
-            <a href="{{ url_for('student_page', name=next_name) }}" class="nav-btn">
-                다음 학생 ({{ next_name }}) →
-            </a>
-        {% endif %}
-    </div>
-
-</main>
-
-<!-- 선생님 팝업 + 좋아요 토글 스크립트 -->
 <script>
-    // 선생님 사진 모달
-    const teacherPhoto = document.getElementById('teacher-photo');
-    const teacherModal = document.getElementById('teacher-modal');
-    const teacherBackdrop = teacherModal.querySelector('.modal-backdrop');
+function toggleLike(btn){
+    let text = btn.innerText;
+    let count = parseInt(text.replace(/[^0-9]/g, ""));
+    if(text.includes("0")) { count = 1; }
+    else { count = 0; }
+    btn.innerText = "❤️ 좋아요 " + count;
+}
 
-    if (teacherPhoto && teacherModal && teacherBackdrop) {
-        teacherPhoto.addEventListener('click', () => {
-            teacherModal.classList.add('show');
-        });
-
-        teacherBackdrop.addEventListener('click', () => {
-            teacherModal.classList.remove('show');
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                teacherModal.classList.remove('show');
-            }
-        });
-    }
-
-    // 좋아요 버튼 토글
-    const likeButtons = document.querySelectorAll('.like-btn');
-
-    likeButtons.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            const liked = btn.getAttribute('data-liked') === 'true';
-            if (liked) {
-                btn.setAttribute('data-liked', 'false');
-                btn.textContent = '❤️ 좋아요';
-            } else {
-                btn.setAttribute('data-liked', 'true');
-                btn.textContent = '💔 좋아요 취소';
-            }
-        });
-    });
+function openPopup() {
+    document.getElementById("popup").style.display = "flex";
+}
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
 </script>
 
 </body>
