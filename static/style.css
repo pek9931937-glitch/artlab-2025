@@ -318,3 +318,8 @@ body {
   font-size: 0.85rem;
   color: #777;
 }
+.teacher-popup-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
