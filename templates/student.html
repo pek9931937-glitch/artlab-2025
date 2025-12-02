@@ -54,23 +54,28 @@
       </div>
 
       <!-- 이전 / 홈 / 다음 -->
-      <div class="student-nav">
-        {% if prev_student %}
-          <a class="nav-btn"
-             href="{{ url_for('student_page', student_id=prev_student.id) }}">← 이전 학생</a>
-        {% else %}
-          <span class="nav-btn disabled">← 이전 학생</span>
-        {% endif %}
+     <div class="student-nav">
+  {% if prev_student %}
+    <a class="nav-btn"
+       href="{{ url_for('student_page', student_id=prev_student.id) }}">
+      ← 이전({{ prev_student.id }} {{ prev_student.name }})
+    </a>
+  {% else %}
+    <span class="nav-btn disabled">← 이전 학생 없음</span>
+  {% endif %}
 
-        <a class="nav-btn" href="{{ url_for('index') }}">홈</a>
+  <a class="nav-btn" href="{{ url_for('index') }}">홈</a>
 
-        {% if next_student %}
-          <a class="nav-btn"
-             href="{{ url_for('student_page', student_id=next_student.id) }}">다음 학생 →</a>
-        {% else %}
-          <span class="nav-btn disabled">다음 학생 →</span>
-        {% endif %}
-      </div>
+  {% if next_student %}
+    <a class="nav-btn"
+       href="{{ url_for('student_page', student_id=next_student.id) }}">
+      다음({{ next_student.id }} {{ next_student.name }}) →
+    </a>
+  {% else %}
+    <span class="nav-btn disabled">다음 학생 없음 →</span>
+  {% endif %}
+</div>
+
     </section>
   </main>
 
