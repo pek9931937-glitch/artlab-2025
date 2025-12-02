@@ -9,29 +9,30 @@
 <body>
 
 <header class="top-bar">
+    <!-- 제목/로고 전체를 클릭하면 홈으로 이동 -->
     <a href="{{ url_for('home') }}" class="logo-title">
-        <img src="{{ url_for('static', filename='gochon-logo.png') }}" class="school-logo">
+        <img src="{{ url_for('static', filename='gochon-logo.png') }}" class="school-logo" alt="Gochon High School Logo">
         <span class="site-title">ArtLab 2025 Digital Gallery</span>
     </a>
 
     <div class="teacher-info">
-        <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}" 
-             class="teacher-photo" id="teacher-photo">
+        <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
+             class="teacher-photo" id="teacher-photo" alt="지도교사 한지민">
         <div class="teacher-name">지도교사 : 한지민</div>
     </div>
 </header>
 
-<!-- 팝업 모달 -->
+<!-- 지도교사 사진 팝업 모달 -->
 <div id="teacher-modal" class="modal">
     <span class="modal-close">&times;</span>
-    <img class="modal-content" id="teacher-modal-img">
+    <img class="modal-content" id="teacher-modal-img" alt="지도교사 사진 크게 보기">
 </div>
 
 <div class="page-container">
 
     <h2 class="main-title">아트랩 2025 멤버</h2>
     <p class="intro-text">
-        이름을 클릭하면 개인 작품 페이지로 이동하도록 만든 디지털 미술관입니다.
+        이름을 클릭하면 개인 작품 페이지로 이동할 수 있도록 만든 디지털 미술관입니다.
     </p>
 
     <!-- 1학년 -->
@@ -70,4 +71,3 @@
 
 </body>
 </html>
-
