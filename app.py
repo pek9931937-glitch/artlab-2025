@@ -17,8 +17,8 @@ students = [
 
 @app.route("/")
 def home():
-    # 메인 페이지에서 학생 목록 사용
-    return render_template("index.html", students=students)
+    # 메인 페이지에서 학생 목록 사용 가능
+    return render_template("index.html")
 
 
 @app.route("/student/<name>")
@@ -43,6 +43,5 @@ def student_page(name):
 
 
 if __name__ == "__main__":
-    # Render에서 필요로 하는 HOST / PORT 설정
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
