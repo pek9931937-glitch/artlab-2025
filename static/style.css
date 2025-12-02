@@ -58,12 +58,11 @@ body {
   opacity: 0.8;
 }
 
-/* 지도교사 박스 (클릭 가능) */
+/* 지도교사 박스 */
 .teacher-box {
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer;
 }
 
 .teacher-photo {
@@ -130,36 +129,192 @@ body {
   text-decoration: none;
   font-size: 0.9rem;
   color: #222;
-  borde
-   /* ========================================
-   팝업 강제 정상화 (최우선 적용)
-========================================= */
-#teacher-popup,
-#artwork-popup {
-  position: fixed !important;
-  inset: 0 !important;
+  border: 1px solid #dde2ee;
+}
+
+.student-pill:hover {
+  background-color: #dbe5ff;
+}
+
+/* ===============================
+   작품 페이지
+================================ */
+
+.student-section h2 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.artwork-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+@media (min-width: 900px) {
+  .artwork-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.artwork-card {
+  background-color: #ffffff;
+  border-radius: 18px;
+  padding: 18px 16px 20px 16px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* 작품 이미지 영역 */
+.artwork-image-box {
+  background-color: #e2ecff;
+  border-radius: 18px;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+  box-sizing: border-box;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #243b80;
+}
+
+@media (min-width: 900px) {
+  .artwork-image-box {
+    height: 350px;
+  }
+}
+
+.artwork-image-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* 작품 텍스트 */
+.artwork-text h3 {
+  margin: 0 0 6px 0;
+  font-size: 1.2rem;
+}
+
+.artwork-text p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* ===============================
+   학생 페이지 네비게이션
+================================ */
+.student-nav {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.nav-btn {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #d0d7e8;
+  background-color: #fff;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: #222;
+}
+
+.nav-btn:hover {
+  background-color: #e6eeff;
+}
+
+.nav-btn.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ===============================
+   팝업 (작품 보기)
+================================ */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.55);
   display: none;
   align-items: center;
   justify-content: center;
-  background-color: rgba(15, 23, 42, 0.55) !important;
-  z-index: 999999 !important;
+  z-index: 999;
 }
 
-#teacher-popup.open,
-#artwork-popup.open {
-  display: flex !important;
+.popup-overlay.open {
+  display: flex;
 }
 
-#teacher-popup .popup-inner,
-#artwork-popup .popup-inner {
-  position: relative !important;
-  background: #fff !important;
-  border-radius: 22px !important;
-  padding: 28px !important;
-  width: 92% !important;
-  max-width: 960px !important;
-  max-height: 82vh !important;
-  overflow-y: auto !important;
-  box-sizing: border-box !important;
+.popup-inner {
+  background-color: #ffffff;
+  border-radius: 22px;
+  padding: 28px;
+  max-width: 960px;
+  width: 92%;
+  max-height: 82vh;
+  box-sizing: border-box;
+  overflow-y: auto;
+  position: relative;
 }
 
+/* 팝업 이미지 박스 */
+.popup-image-box {
+  background-color: #e2ecff;
+  border-radius: 18px;
+  width: 100%;
+  height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding: 16px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #243b80;
+}
+
+@media (min-width: 900px) {
+  .popup-image-box {
+    height: 540px;
+  }
+}
+
+.popup-description {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #333;
+}
+
+.popup-close {
+  position: absolute;
+  right: 16px;
+  top: 12px;
+  border: none;
+  background: transparent;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* ===============================
+   FOOTER
+================================ */
+.site-footer {
+  padding: 16px 0 28px 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #777;
+}
