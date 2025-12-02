@@ -16,14 +16,11 @@ students = [
 
 @app.route("/")
 def home():
-    # 현재는 students를 템플릿에서 직접 쓰지는 않지만
-    # 나중에 활용할 수 있도록 같이 보냄
     return render_template("index.html", students=students)
 
 
 @app.route("/student/<name>")
 def student_page(name):
-    # 이전 / 다음 학생 이름 계산
     prev_name = None
     next_name = None
 
@@ -42,5 +39,9 @@ def student_page(name):
     )
 
 
+# 🔥🔥🔥 Render 호환 실행 코드 (중요!)
 if __name__ == "__main__":
-    app.run()
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
+
