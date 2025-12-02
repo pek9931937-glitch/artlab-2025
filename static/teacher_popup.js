@@ -9,17 +9,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const open = () => popup.classList.add("open");
   const close = () => popup.classList.remove("open");
 
-  teacherBox.addEventListener("click", open);
+  // 지도교사 사진 클릭 → 팝업 열기
+  teacherBox.addEventListener("click", (e) => {
+    e.stopPropagation();
+    open();
+  });
 
+  // X 버튼 클릭 → 닫기
   if (closeBtn) {
-    closeBtn.addEventListener("click", close);
+    closeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      close();
+    });
   }
 
-  // 바깥(어두운 영역) 클릭 시 닫기
-  popup.addEventListener("click", (e) => {
-    if (e.target === popup) {
-      close();
-    }
+  // 팝업 전체(배경 + 안쪽 내용) 클릭 → 닫기
+  popup.addEventListener("click", () => {
+    close();
   });
 });
-
