@@ -2,149 +2,72 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>{{ name }} 작품 갤러리 - ArtLab 2025</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='style.css') }}"
-    >
+    <title>ArtLab 2025 Digital Gallery</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
-<header class="main-header">
-    <div class="header-inner">
-        <div class="logo-title">
-            <img
-                src="{{ url_for('static', filename='gochon-logo.png') }}"
-                alt="고촌고등학교 로고"
-                class="school-logo"
-            >
-            <span class="site-title">ArtLab 2025 디지털 미술관</span>
-        </div>
-        <div class="teacher">
-            <img
-                src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
-                alt="지도교사 한지민"
-                class="teacher-photo"
-                id="teacher-photo"
-            >
-            <div class="teacher-name">지도교사 : 한지민</div>
-        </div>
+
+<header class="top-bar">
+    <!-- 제목/로고 전체를 클릭하면 홈으로 이동 -->
+    <a href="{{ url_for('home') }}" class="logo-title">
+        <img src="{{ url_for('static', filename='gochon-logo.png') }}" class="school-logo" alt="Gochon High School Logo">
+        <span class="site-title">ArtLab 2025 Digital Gallery</span>
+    </a>
+
+    <div class="teacher-info">
+        <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
+             class="teacher-photo" id="teacher-photo" alt="지도교사 한지민">
+        <div class="teacher-name">지도교사 : 한지민</div>
     </div>
 </header>
 
-<main class="container">
-    <h2 class="section-title">{{ name }} 작품 갤러리</h2>
-
-    <p class="section-desc">
-        아래의 1번/2번 작품 영역에는 나중에 실제 작품 이미지와 작품 설명이 들어갈 예정이다.
-        현재는 테스트용 틀이며, 작품 제목과 설명은 추후 업데이트할 계획이다.
-    </p>
-
-    <section class="artworks">
-        <!-- 1번 작품 -->
-        <article class="artwork" data-artwork="1">
-            <div class="artwork-image" onclick="openArtwork(1)">
-                1번 작품 (이미지 자리)
-            </div>
-            <h3 class="artwork-title">1번 작품 제목 (예시)</h3>
-            <p class="art-desc">
-                이 영역에는 1번 작품에 대한 제목과 상세한 작품 설명이 들어갈 예정이다.
-                지금은 “작품 설명은 추후 등록 예정입니다.”라는 안내 문구만 표시한다.
-            </p>
-            <button class="like-btn" onclick="toggleLike(this)">
-                ♥ 좋아요 <span class="like-count">0</span>
-            </button>
-        </article>
-
-        <!-- 2번 작품 -->
-        <article class="artwork" data-artwork="2">
-            <div class="artwork-image" onclick="openArtwork(2)">
-                2번 작품 (이미지 자리)
-            </div>
-            <h3 class="artwork-title">2번 작품 제목 (예시)</h3>
-            <p class="art-desc">
-                이 영역에는 2번 작품에 대한 제목과 상세한 작품 설명이 들어갈 예정이다.
-                지금은 “작품 설명은 추후 등록 예정입니다.”라는 안내 문구만 표시한다.
-            </p>
-            <button class="like-btn" onclick="toggleLike(this)">
-                ♥ 좋아요 <span class="like-count">0</span>
-            </button>
-        </article>
-    </section>
-
-    <!-- 이전 / 홈 / 다음 네비게이션 -->
-    <nav class="student-nav">
-        {% if prev_name %}
-            <a href="{{ url_for('student_page', name=prev_name) }}" class="nav-link">
-                &lt; 이전 ({{ prev_name }})
-            </a>
-        {% endif %}
-
-        <a href="{{ url_for('home') }}" class="nav-link">
-            홈으로
-        </a>
-
-        {% if next_name %}
-            <a href="{{ url_for('student_page', name=next_name) }}" class="nav-link">
-                다음 ({{ next_name }}) &gt;
-            </a>
-        {% endif %}
-    </nav>
-</main>
-
-<!-- 작품 확대용 팝업 -->
-<div id="art-popup" class="art-popup hidden">
-    <div class="art-popup-backdrop" onclick="closeArtwork()"></div>
-    <div class="art-popup-content">
-        <button class="popup-close" onclick="closeArtwork()">×</button>
-        <h3 id="popup-title"></h3>
-        <p id="popup-desc"></p>
-    </div>
+<!-- 지도교사 사진 팝업 모달 -->
+<div id="teacher-modal" class="modal">
+    <span class="modal-close">&times;</span>
+    <img class="modal-content" id="teacher-modal-img" alt="지도교사 사진 크게 보기">
 </div>
 
-<script>
-    // 지도교사 사진 확대/축소
-    const teacherPhoto = document.getElementById('teacher-photo');
-    if (teacherPhoto) {
-        teacherPhoto.addEventListener('click', () => {
-            teacherPhoto.classList.toggle('large');
-        });
-    }
+<div class="page-container">
 
-    // 좋아요 토글 (페이지 새로고침하면 초기화되는 간단 버전)
-    function toggleLike(button) {
-        const liked = button.classList.toggle('liked');
-        const countSpan = button.querySelector('.like-count');
-        let count = parseInt(countSpan.textContent, 10);
+    <h2 class="main-title">아트랩 2025 멤버</h2>
+    <p class="intro-text">
+        이름을 클릭하면 개인 작품 페이지로 이동할 수 있도록 만든 디지털 미술관입니다.
+    </p>
 
-        if (liked) {
-            count += 1;
-        } else {
-            count -= 1;
-            if (count < 0) count = 0;
-        }
-        countSpan.textContent = count.toString();
-    }
+    <!-- 1학년 -->
+    <h3 class="grade-title">1학년</h3>
+    <div class="student-grid">
+        <a href="/student/곽민지" class="student-btn">10103 곽민지</a>
+        <a href="/student/김채영" class="student-btn">10108 김채영</a>
+        <a href="/student/양희욱" class="student-btn">10115 양희욱</a>
+        <a href="/student/이현준" class="student-btn">10123 이현준</a>
+        <a href="/student/이진주" class="student-btn">10224 이진주</a>
+        <a href="/student/김민재" class="student-btn">10304 김민재</a>
+        <a href="/student/윤종민" class="student-btn">10318 윤종민</a>
+        <a href="/student/서희" class="student-btn">10611 서희</a>
+        <a href="/student/이승재" class="student-btn">10616 이승재</a>
+        <a href="/student/이난영" class="student-btn">10820 이난영</a>
+        <a href="/student/조현아" class="student-btn">10832 조현아</a>
+    </div>
 
-    // 작품 팝업 열기
-    function openArtwork(num) {
-        const popup = document.getElementById('art-popup');
-        const titleEl = document.getElementById('popup-title');
-        const descEl = document.getElementById('popup-desc');
+    <!-- 2학년 -->
+    <h3 class="grade-title">2학년</h3>
+    <div class="student-grid">
+        <a href="/student/김건우" class="student-btn">20203 김건우</a>
+        <a href="/student/민희윤" class="student-btn">20210 민희윤</a>
+        <a href="/student/배소윤" class="student-btn">21013 배소윤</a>
+    </div>
 
-        titleEl.textContent = num + "번 작품 (예시)";
-        descEl.textContent =
-            "이 팝업에는 실제 작품 이미지와 보다 큰 화면, 그리고 자세한 작품 설명이 들어갈 예정이다. " +
-            "현재는 구조를 확인하기 위한 테스트 문구이다.";
+    <!-- 3학년 -->
+    <h3 class="grade-title">3학년</h3>
+    <div class="student-grid">
+        <a href="/student/김경원" class="student-btn">31131 김경원</a>
+    </div>
 
-        popup.classList.remove('hidden');
-    }
+</div>
 
-    // 작품 팝업 닫기
-    function closeArtwork() {
-        const popup = document.getElementById('art-popup');
-        popup.classList.add('hidden');
-    }
-</script>
+<script src="{{ url_for('static', filename='popup.js') }}"></script>
+
 </body>
 </html>
