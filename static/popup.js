@@ -1,31 +1,55 @@
-// 작품 카드 클릭 → 팝업 열고, 설명만 크게 보여주는 스크립트
+// 작품 카드 클릭 시 팝업으로 크게 보여주는 스크립트
 document.addEventListener("DOMContentLoaded", () => {
-  const overlay = document.getElementById("popup-overlay");
-  const descEl = document.getElementById("popup-description");
-  const closeBtn = document.querySelector(".popup-close");
+  const popup = document.getElementById("artwork-popup");
+  if (!popup) return; // 이 페이지에 팝업이 없으면 종료
 
-  // 카드 안 이미지 영역 클릭 시
-  document.querySelectorAll(".artwork-image-box").forEach((box) => {
-    box.addEventListener("click", () => {
-      const artNo = box.dataset.artworkNo;
-      if (popupData && popupData[artNo]) {
-        descEl.textContent = popupData[artNo];
+  const popupImageBox = popup.querySelector(".popup-image-box");
+  const popupImageLabel = document.getElementById("popup-image-label");
+  const popupText = document.getElementById("popup-text");
+  const closeBtn = popup.querySelector(".popup-close");
+
+  // 학생 페이지에서 넘겨준 작품 데이터
+  const dataList = window.artworksData || [];
+
+  // 작품 카드들
+  const cards = document.querySelectorAll(".artwork-card");
+
+  cards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const idx = parseInt(card.dataset.artworkIndex, 10) || 0;
+      const data = dataList[idx] || null;
+
+      if (!data) {
+        popupImageLabel.textContent = "작품 이미지";
+        popupText.textContent = "";
       } else {
-        descEl.textContent = "";
+        // 이미지 파일을 이후에 사용하고 싶으면 여기에서 <img> 생성해서 붙이면 됨
+        const label =
+          data.placeholder_label ||
+          (data.no ? data.no + "번 작품 (이미지 자리)" : "작품 이미지");
+
+        // 현재는 이미지 대신 텍스트 라벨만 표시
+        popupImageLabel.textContent = label;
+        popupText.textContent = data.description || "";
       }
-      overlay.classList.add("visible");
+
+      popup.classList.add("open");
     });
   });
 
-  // 닫기 버튼
-  closeBtn.addEventListener("click", () => {
-    overlay.classList.remove("visible");
-  });
+  const closePopup = () => {
+    popup.classList.remove("open");
+  };
 
-  // 배경 클릭 시 닫기
-  overlay.addEventListener("click", (e) => {
-    if (e.target === overlay) {
-      overlay.classList.remove("visible");
+  // 닫기 버튼
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closePopup);
+  }
+
+  // 오버레이 클릭 시 닫기
+  popup.addEventListener("click", (e) => {
+    if (e.target === popup) {
+      closePopup();
     }
   });
 });
