@@ -8,7 +8,7 @@
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <!-- 로고 + 제목 (가로 정렬, 클릭 시 홈으로) -->
+      <!-- 로고 + 제목 (클릭하면 홈) -->
       <div class="logo-box">
         <a href="{{ url_for('index') }}" class="home-link">
           <img src="{{ url_for('static', filename='gochon-logo.png') }}"
@@ -20,7 +20,7 @@
         </a>
       </div>
 
-      <!-- 지도교사 사진 (클릭 시 팝업) -->
+      <!-- 지도교사 사진 (클릭하면 팝업) -->
       <div class="teacher-box">
         <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
              alt="지도교사 한지민" class="teacher-photo">
@@ -94,7 +94,7 @@
   <!-- 지도교사 팝업 -->
   <div id="teacher-popup" class="popup-overlay">
     <div class="popup-inner">
-      <button class="popup-close" type="button">&times;</button>
+      <button class="popup-close teacher-close" type="button">&times;</button>
       <div class="popup-image-box">
         <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
              alt="지도교사 한지민" class="teacher-popup-image">
