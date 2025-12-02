@@ -1,3 +1,8 @@
+/* ===== 공통 ===== */
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -5,77 +10,149 @@ body {
     color: #333;
 }
 
+/* ===== 헤더 ===== */
 header {
-    background: #000;
-    color: #fff;
-    padding: 20px;
+    background: #000000;
+    color: #ffffff;
+    padding: 30px 20px 40px;
     text-align: center;
-    position: relative;
 }
 
-/* 지도교사 우측 상단 고정 */
-.teacher-box {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    text-align: center;
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+/* 고촌고 심볼 */
+.school-logo {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    object-fit: cover;
+    background: #fff;
+}
+
+/* 제목 */
+.title-block h1 {
+    margin: 0;
+    font-size: 2.0rem;
+}
+
+.subtitle {
+    margin: 4px 0 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* 지도교사 */
+.teacher-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.teacher-photo-wrapper {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #ffffff;
 }
 
 #teacher-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     cursor: pointer;
-    transition: 0.3s;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-#teacher-photo.small {
-    width: 70px;
-    border-radius: 50%;
-}
-
+/* 클릭 시 확대 */
 #teacher-photo.large {
-    width: 260px;
-    border-radius: 12px;
+    transform: scale(1.4);
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.6);
 }
 
 .teacher-name {
-    color: #ddd;
-    font-size: 13px;
-    margin-top: 5px;
-}
-
-.container {
-    width: 90%;
-    max-width: 900px;
-    margin: auto;
-    padding: 20px 0 40px 0;
-}
-
-/* 학년 제목 */
-.grade-title {
-    width: 100%;
-    margin-top: 25px;
-    margin-bottom: 5px;
-    font-size: 18px;
+    margin: 4px 0 0;
     font-weight: bold;
 }
 
-/* 학생 이름 버튼 */
+.teacher-tip {
+    margin: 0;
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+/* ===== 메인 컨테이너 ===== */
+.container {
+    width: 90%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 30px 0 40px;
+}
+
+.member-section h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+
+.member-guide {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* 학년 블록 */
+.grade-block {
+    margin-top: 24px;
+}
+
+.grade-block h3 {
+    margin-bottom: 10px;
+}
+
+/* 멤버 리스트 레이아웃 */
 .member-list {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
 }
 
+/* 학생 버튼 */
 .member {
-    background: #f2f2f2;
+    display: inline-block;
     padding: 8px 14px;
-    border-radius: 8px;
-    text-decoration: none;
+    border-radius: 999px;
+    background: #f2f2f2;
     color: #333;
-    font-weight: bold;
-    font-size: 14px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
 }
 
 .member:hover {
-    background: #ddd;
+    background: #e0e0e0;
+    transform: translateY(-1px);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12);
 }
 
+/* 모바일 대응 */
+@media (max-width: 600px) {
+    .header-inner {
+        flex-direction: column;
+    }
+
+    .container {
+        width: 94%;
+    }
+
+    .member {
+        font-size: 0.85rem;
+        padding: 7px 12px;
+    }
+}
