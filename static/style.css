@@ -1,17 +1,17 @@
 body {
-    background: #f5f5f5;
+    background: #ffffff;           /* 전체 배경 흰색 */
     margin: 0;
     font-family: sans-serif;
 }
 
-/* 헤더 */
+/* 헤더 : 검정 테마 */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: white;
+    background: #000000;           /* 검정색 */
     padding: 20px 40px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #333;
 }
 
 .header-left {
@@ -29,7 +29,7 @@ body {
 .title {
     font-size: 32px;
     font-weight: 700;
-    color: black;
+    color: #ffffff;               /* 제목 흰색 */
 }
 
 /* 교사 */
@@ -39,7 +39,7 @@ body {
 
 .teacher-img {
     width: 70px;
-    height: 70px;
+    height: 80px;       /* 세로 비율 약간 늘림 */
     border-radius: 50%;
     cursor: pointer;
 }
@@ -47,9 +47,10 @@ body {
 .teacher-name {
     font-size: 13px;
     margin-top: 4px;
+    color: #ffffff;               /* 흰색 텍스트 */
 }
 
-/* 팝업 */
+/* 팝업 공통 (선생님 + 작품) */
 .popup {
     display: none;
     position: fixed;
@@ -57,7 +58,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.35);  /* 너무 어둡지 않게 0.35 */
     justify-content: center;
     align-items: center;
     z-index: 9999;
@@ -69,12 +70,23 @@ body {
     border-radius: 12px;
 }
 
+/* 작품 팝업 카드 */
+.art-popup-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    max-width: 520px;
+    width: 90%;
+}
+
 /* 본문 */
 .container {
     width: 90%;
     margin: 40px auto;
 }
 
+/* 학생 목록 페이지용 (이미 사용 중) */
 .grid {
     display: flex;
     flex-wrap: wrap;
@@ -107,13 +119,19 @@ body {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+/* 작품 이미지: 세로 조금 더 길게 (약 3cm 이상 느낌) */
 .art-img {
     background: #ddecff;
-    height: 200px;
+    height: 260px;  /* 기존 200px → 260px */
     border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* 팝업 안에서 쓰는 큰 이미지 박스 */
+.art-img-big {
+    height: 300px;  /* 팝업에서는 좀 더 크게 */
 }
 
 /* 좋아요 */
@@ -126,6 +144,11 @@ body {
     cursor: pointer;
 }
 
+/* 좋아요 눌렀을 때 */
+.like-btn.liked {
+    background: #ff6f6f;
+}
+
 /* 네비 */
 .nav {
     margin-top: 30px;
@@ -136,7 +159,7 @@ body {
 
 .btn-nav {
     padding: 10px 20px;
-    background: #ddd;
+    background: #f0f0f0;
     border-radius: 10px;
     text-decoration: none;
     color: black;
