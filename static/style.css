@@ -1,158 +1,168 @@
-/* ===== 공통 ===== */
+/* 전체 공통 설정 */
 * {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: "Noto Sans KR", Arial, sans-serif;
     background: #ffffff;
     color: #333;
 }
 
-/* ===== 헤더 ===== */
-header {
-    background: #000000;
-    color: #ffffff;
-    padding: 30px 20px 40px;
-    text-align: center;
+/* 상단 헤더 영역 */
+.main-header {
+    background: #000;
+    color: #fff;
+    padding: 20px 0;
 }
 
-.header-inner {
+.logo-title-wrapper {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 16px;
-    margin-bottom: 20px;
+    justify-content: space-between;
 }
 
-/* 고촌고 심볼 */
-.school-logo {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    border: 2px solid #ffffff;
-    object-fit: cover;
-    background: #fff;
+/* 고촌고 로고 */
+.gochon-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
 }
 
-/* 제목 */
+/* 제목 영역 */
+.title-block {
+    text-align: center;
+    flex: 1;
+}
+
 .title-block h1 {
+    font-size: 1.8rem;
     margin: 0;
-    font-size: 2.0rem;
 }
 
 .subtitle {
-    margin: 4px 0 0;
-    font-size: 0.9rem;
-    opacity: 0.8;
+    margin: 6px 0 0;
+    font-size: 0.95rem;
+    color: #dddddd;
 }
 
-/* 지도교사 */
-.teacher-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-}
-
+/* 선생님 사진 영역 */
 .teacher-photo-wrapper {
-    width: 120px;
-    height: 120px;
+    text-align: center;
+    min-width: 120px;
+}
+
+.teacher-photo {
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid #ffffff;
-}
-
-#teacher-photo {
-    width: 100%;
-    height: 100%;
     object-fit: cover;
+    border: 2px solid #fff;
     cursor: pointer;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* 클릭 시 확대 */
-#teacher-photo.large {
-    transform: scale(1.4);
-    box-shadow: 0 0 16px rgba(0, 0, 0, 0.6);
+/* 사진 클릭 시 확대 */
+.teacher-photo.large {
+    transform: scale(1.8);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
 }
 
 .teacher-name {
-    margin: 4px 0 0;
-    font-weight: bold;
+    margin-top: 6px;
+    font-size: 0.85rem;
 }
 
-.teacher-tip {
-    margin: 0;
-    font-size: 0.8rem;
-    opacity: 0.8;
-}
-
-/* ===== 메인 컨테이너 ===== */
-.container {
+/* 소개 섹션 */
+.intro-section {
     width: 90%;
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 30px 0 40px;
+    max-width: 900px;
+    margin: 24px auto 10px;
 }
 
-.member-section h2 {
-    margin-top: 0;
-    font-size: 1.5rem;
+.intro-section h2 {
+    margin-bottom: 8px;
+    font-size: 1.4rem;
 }
 
-.member-guide {
+.intro-text {
+    margin: 0;
     font-size: 0.95rem;
     color: #555;
 }
 
-/* 학년 블록 */
-.grade-block {
-    margin-top: 24px;
+/* 학년별 섹션 */
+.grade-section {
+    width: 90%;
+    max-width: 900px;
+    margin: 18px auto 10px;
 }
 
-.grade-block h3 {
+.grade-section h3 {
     margin-bottom: 10px;
+    font-size: 1.1rem;
 }
 
-/* 멤버 리스트 레이아웃 */
+/* 멤버 버튼 리스트 (자동 줄바꿈 5개씩 보이는 느낌) */
 .member-list {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
 }
 
-/* 학생 버튼 */
-.member {
+/* 개별 버튼 */
+.member-btn {
     display: inline-block;
     padding: 8px 14px;
-    border-radius: 999px;
-    background: #f2f2f2;
-    color: #333;
-    text-decoration: none;
+    background: #f0f0f0;
+    border-radius: 999px;  /* 알약 모양 버튼 */
     font-size: 0.9rem;
-    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ddd;
+    transition: background 0.15s ease, transform 0.1s ease;
 }
 
-.member:hover {
+.member-btn:hover {
     background: #e0e0e0;
     transform: translateY(-1px);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.12);
 }
 
-/* 모바일 대응 */
-@media (max-width: 600px) {
-    .header-inner {
+/* 푸터 */
+.main-footer {
+    margin-top: 40px;
+    padding: 16px 0 24px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #777;
+    border-top: 1px solid #eee;
+}
+
+/* 반응형: 모바일에서 정렬 조정 */
+@media (max-width: 768px) {
+    .logo-title-wrapper {
         flex-direction: column;
+        gap: 12px;
     }
 
-    .container {
-        width: 94%;
+    .title-block {
+        order: 1;
     }
 
-    .member {
-        font-size: 0.85rem;
-        padding: 7px 12px;
+    .gochon-logo {
+        order: 0;
+    }
+
+    .teacher-photo-wrapper {
+        order: 2;
+    }
+
+    .teacher-photo.large {
+        transform: scale(1.4);
     }
 }
+
