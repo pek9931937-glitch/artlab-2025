@@ -4,7 +4,7 @@ from flask import Flask, render_template, abort
 app = Flask(__name__)
 
 # -----------------------------
-#  학생 목록 (학년 + 학번 + 이름)
+#  학생 목록
 # -----------------------------
 STUDENTS = [
     # 1학년
@@ -27,18 +27,12 @@ STUDENTS = [
     {"grade": 3, "id": "31131", "name": "김경원"},
 ]
 
-# 정렬(학년 → 학번)
 STUDENTS.sort(key=lambda s: (s["grade"], s["id"]))
 
 
-def slug_of(student):
-    """URL용 슬러그: 예) 10103-곽민지"""
-    return f'{student["id"]}-{student["name"]}'
-
-
-def find_student_by_slug(slug):
+def find_student_by_id(student_id):
     for s in STUDENTS:
-        if slug_of(s) == slug:
+        if s["id"] == student_id:
             return s
     return None
 
@@ -48,37 +42,30 @@ def find_student_by_slug(slug):
 # -----------------------------
 @app.route("/")
 def index():
-    # 학년별 그룹
     grouped = {1: [], 2: [], 3: []}
     for s in STUDENTS:
         grouped[s["grade"]].append(s)
 
-    return render_template(
-        "index.html",
-        grouped=grouped,
-        slug_of=slug_of,
-    )
+    return render_template("index.html", grouped=grouped)
 
 
-@app.route("/student/<slug>")
-def student_page(slug):
-    student = find_student_by_slug(slug)
+@app.route("/student/<student_id>")
+def student_page(student_id):
+    student = find_student_by_id(student_id)
     if not student:
         abort(404)
 
-    # 이전/다음 학생 찾기
     idx = STUDENTS.index(student)
     prev_student = STUDENTS[idx - 1] if idx > 0 else None
     next_student = STUDENTS[idx + 1] if idx < len(STUDENTS) - 1 else None
 
-    # 현재는 예시용 더미 데이터 (이미지 파일 넣으면 image 필드에 경로 지정하면 됨)
     artworks = [
         {
             "no": 1,
             "title": "1번 작품 제목입니다.",
             "description": "이 영역에는 1번 작품에 대한 제목과 상세한 설명이 들어갈 예정입니다. 지금은 예시 문장으로 채워져 있습니다.",
             "placeholder_label": "1번 작품 (이미지 자리)",
-            "image": None,  # 실제 이미지 파일 사용 시 예: url_for('static', filename='art/10103_1.jpg')
+            "image": None,
         },
         {
             "no": 2,
@@ -95,14 +82,9 @@ def student_page(slug):
         artworks=artworks,
         prev_student=prev_student,
         next_student=next_student,
-        slug_of=slug_of,
     )
 
 
-# -----------------------------
-#  Render 실행 설정
-# -----------------------------
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    # Render에서 반드시 host=0.0.0.0 / 지정 포트 사용
     app.run(host="0.0.0.0", port=port, debug=False)
