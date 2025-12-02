@@ -1,73 +1,83 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>ArtLab 2025 Digital Gallery</title>
+    <meta charset="UTF-8" />
+    <title>ArtLab 2025 Digital Museum</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body>
+    <!-- 상단 헤더 -->
+    <header class="header">
+        <div class="header-left">
+            <img src="{{ url_for('static', filename='gochon-logo.png') }}"
+                 alt="Gochon High School Logo"
+                 class="logo">
+        </div>
 
-<header class="top-bar">
-    <!-- 제목/로고 전체를 클릭하면 홈으로 이동 -->
-    <a href="{{ url_for('home') }}" class="logo-title">
-        <img src="{{ url_for('static', filename='gochon-logo.png') }}" class="school-logo" alt="Gochon High School Logo">
-        <span class="site-title">ArtLab 2025 Digital Gallery</span>
-    </a>
+        <div class="header-center">
+            <!-- 제목 클릭 시 홈으로 이동 -->
+            <a href="{{ url_for('home') }}" class="header-title-link">
+                <h1 class="header-title">ArtLab 2025 Digital Museum</h1>
+            </a>
+        </div>
 
-    <div class="teacher-info">
-        <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
-             class="teacher-photo" id="teacher-photo" alt="지도교사 한지민">
-        <div class="teacher-name">지도교사 : 한지민</div>
-    </div>
-</header>
+        <div class="header-right">
+            <!-- 한지민 선생님 사진 (팝업 대상) -->
+            <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
+                 alt="지도교사 한지민"
+                 class="teacher-photo"
+                 id="teacher-photo">
+        </div>
+    </header>
 
-<!-- 지도교사 사진 팝업 모달 -->
-<div id="teacher-modal" class="modal">
-    <span class="modal-close">&times;</span>
-    <img class="modal-content" id="teacher-modal-img" alt="지도교사 사진 크게 보기">
-</div>
+    <main class="main">
+        <section class="section">
+            <h2 class="section-title">참여 학생 목록입니다.</h2>
 
-<div class="page-container">
+            <!-- 학생 목록 그리드 -->
+            <div class="student-grid">
+                {% for student in students %}
+                <a class="student-card"
+                   href="{{ url_for('student_page', name=student) }}">
+                    <span class="student-name">{{ student }}</span>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
 
-    <h2 class="main-title">아트랩 2025 멤버</h2>
-    <p class="intro-text">
-        이름을 클릭하면 개인 작품 페이지로 이동할 수 있도록 만든 디지털 미술관입니다.
-    </p>
-
-    <!-- 1학년 -->
-    <h3 class="grade-title">1학년</h3>
-    <div class="student-grid">
-        <a href="/student/곽민지" class="student-btn">10103 곽민지</a>
-        <a href="/student/김채영" class="student-btn">10108 김채영</a>
-        <a href="/student/양희욱" class="student-btn">10115 양희욱</a>
-        <a href="/student/이현준" class="student-btn">10123 이현준</a>
-        <a href="/student/이진주" class="student-btn">10224 이진주</a>
-        <a href="/student/김민재" class="student-btn">10304 김민재</a>
-        <a href="/student/윤종민" class="student-btn">10318 윤종민</a>
-        <a href="/student/서희" class="student-btn">10611 서희</a>
-        <a href="/student/이승재" class="student-btn">10616 이승재</a>
-        <a href="/student/이난영" class="student-btn">10820 이난영</a>
-        <a href="/student/조현아" class="student-btn">10832 조현아</a>
-    </div>
-
-    <!-- 2학년 -->
-    <h3 class="grade-title">2학년</h3>
-    <div class="student-grid">
-        <a href="/student/김건우" class="student-btn">20203 김건우</a>
-        <a href="/student/민희윤" class="student-btn">20210 민희윤</a>
-        <a href="/student/배소윤" class="student-btn">21013 배소윤</a>
+    <!-- 선생님 사진 팝업 -->
+    <div class="modal" id="teacher-modal">
+        <div class="modal-backdrop" id="teacher-modal-backdrop"></div>
+        <div class="modal-content">
+            <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
+                 alt="지도교사 한지민 확대"
+                 class="modal-image">
+        </div>
     </div>
 
-    <!-- 3학년 -->
-    <h3 class="grade-title">3학년</h3>
-    <div class="student-grid">
-        <a href="/student/김경원" class="student-btn">31131 김경원</a>
-    </div>
+    <!-- 간단 스크립트: 선생님 사진 팝업 / 닫기 -->
+    <script>
+        const teacherPhoto = document.getElementById("teacher-photo");
+        const teacherModal = document.getElementById("teacher-modal");
+        const teacherBackdrop = document.getElementById("teacher-modal-backdrop");
 
-</div>
+        if (teacherPhoto && teacherModal && teacherBackdrop) {
+            teacherPhoto.addEventListener("click", () => {
+                teacherModal.classList.add("show");
+            });
 
-<script src="{{ url_for('static', filename='popup.js') }}"></script>
+            teacherBackdrop.addEventListener("click", () => {
+                teacherModal.classList.remove("show");
+            });
 
+            // ESC 키로 닫기
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape") {
+                    teacherModal.classList.remove("show");
+                }
+            });
+        }
+    </script>
 </body>
 </html>
