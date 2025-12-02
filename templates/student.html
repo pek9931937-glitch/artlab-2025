@@ -34,6 +34,7 @@
         현재는 테스트용 문구입니다.
       </p>
 
+      <!-- 두 작품 카드 -->
       <div class="artwork-row">
         {% for art in artworks %}
           <article class="artwork-card" data-artwork-index="{{ loop.index0 }}">
@@ -52,6 +53,7 @@
         {% endfor %}
       </div>
 
+      <!-- 이전 / 홈 / 다음 -->
       <div class="student-nav">
         {% if prev_student %}
           <a class="nav-btn"
@@ -83,24 +85,9 @@
     </div>
   </div>
 
-  <!-- 지도교사 팝업 -->
-  <div id="teacher-popup" class="popup-overlay">
-    <div class="popup-inner">
-      <button class="popup-close" type="button">&times;</button>
-      <div class="popup-image-box">
-        <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
-             alt="지도교사 한지민" class="teacher-popup-image">
-      </div>
-      <p class="popup-description">
-        고촌고 미술 동아리 ArtLab 2025를 지도하고 있는 한지민 교사입니다.
-      </p>
-    </div>
-  </div>
-
   <script>
     window.artworksData = {{ artworks|tojson }};
   </script>
   <script src="{{ url_for('static', filename='popup.js') }}"></script>
-  <script src="{{ url_for('static', filename='teacher_popup.js') }}"></script>
 </body>
 </html>
