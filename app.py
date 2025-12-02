@@ -2,22 +2,45 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-# 학생 리스트
+# 학생 이름 목록 (페이지 이동 순서)
 students = [
-    "곽민지", "김채영", "양희욱", "이현준", "윤종민",
-    "서희", "이승재", "이나연", "조현아",
+    # 1학년 (11명)
+    "곽민지", "김채영", "양희욱", "이현준", "이진주",
+    "김민재", "윤종민", "서희", "이승재", "이난영", "조현아",
+    # 2학년 (3명)
     "김건우", "민희윤", "배소윤",
-    "김경원"
+    # 3학년 (1명)
+    "김경원",
 ]
+
 
 @app.route("/")
 def home():
+    # 현재는 students를 템플릿에서 직접 쓰지는 않지만
+    # 나중에 활용할 수 있도록 같이 보냄
     return render_template("index.html", students=students)
 
-# 자동 라우팅: /student/이름
+
 @app.route("/student/<name>")
 def student_page(name):
-    return render_template("student.html", name=name)
+    # 이전 / 다음 학생 이름 계산
+    prev_name = None
+    next_name = None
+
+    if name in students:
+        idx = students.index(name)
+        if idx > 0:
+            prev_name = students[idx - 1]
+        if idx < len(students) - 1:
+            next_name = students[idx + 1]
+
+    return render_template(
+        "student.html",
+        name=name,
+        prev_name=prev_name,
+        next_name=next_name,
+    )
+
 
 if __name__ == "__main__":
     app.run()
