@@ -2,14 +2,13 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>ArtLab 2025 Digital Gallery</title>
+    <title>{{ name }} 작품 갤러리</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
 <header class="top-bar">
-    <!-- 제목/로고 전체를 클릭하면 홈으로 이동 -->
     <a href="{{ url_for('home') }}" class="logo-title">
         <img src="{{ url_for('static', filename='gochon-logo.png') }}" class="school-logo" alt="Gochon High School Logo">
         <span class="site-title">ArtLab 2025 Digital Gallery</span>
@@ -30,39 +29,50 @@
 
 <div class="page-container">
 
-    <h2 class="main-title">아트랩 2025 멤버</h2>
+    <h2 class="main-title">{{ name }} 작품 갤러리</h2>
     <p class="intro-text">
-        이름을 클릭하면 개인 작품 페이지로 이동할 수 있도록 만든 디지털 미술관입니다.
+        아래의 두 작품 영역에는 실제 작품 이미지와 작품 설명이 들어갈 예정입니다.
+        현재는 테스트용 문구이며, 작품 제목과 설명은 추후 업데이트될 예정입니다.
     </p>
 
-    <!-- 1학년 -->
-    <h3 class="grade-title">1학년</h3>
-    <div class="student-grid">
-        <a href="/student/곽민지" class="student-btn">10103 곽민지</a>
-        <a href="/student/김채영" class="student-btn">10108 김채영</a>
-        <a href="/student/양희욱" class="student-btn">10115 양희욱</a>
-        <a href="/student/이현준" class="student-btn">10123 이현준</a>
-        <a href="/student/이진주" class="student-btn">10224 이진주</a>
-        <a href="/student/김민재" class="student-btn">10304 김민재</a>
-        <a href="/student/윤종민" class="student-btn">10318 윤종민</a>
-        <a href="/student/서희" class="student-btn">10611 서희</a>
-        <a href="/student/이승재" class="student-btn">10616 이승재</a>
-        <a href="/student/이난영" class="student-btn">10820 이난영</a>
-        <a href="/student/조현아" class="student-btn">10832 조현아</a>
+    <!-- 작품 1번/2번 : 세로(위–아래) 배치 -->
+    <div class="art-column">
+
+        <!-- 1번 작품 -->
+        <div class="art-card">
+            <div class="art-img">1번 작품 (이미지 자리)</div>
+            <h4>1번 작품 제목 (예시)</h4>
+            <p>
+                이 영역에는 1번 작품의 제목과 상세한 작품 설명이 들어갈 예정입니다.
+                지금은 예시 문장으로 채워져 있습니다.
+            </p>
+            <button class="like-btn">❤️ 좋아요 0</button>
+        </div>
+
+        <!-- 2번 작품 -->
+        <div class="art-card">
+            <div class="art-img">2번 작품 (이미지 자리)</div>
+            <h4>2번 작품 제목 (예시)</h4>
+            <p>
+                이 영역에는 2번 작품의 제목과 상세한 작품 설명이 들어갈 예정입니다.
+                지금은 예시 문장으로 채워져 있습니다.
+            </p>
+            <button class="like-btn">❤️ 좋아요 0</button>
+        </div>
+
     </div>
 
-    <!-- 2학년 -->
-    <h3 class="grade-title">2학년</h3>
-    <div class="student-grid">
-        <a href="/student/김건우" class="student-btn">20203 김건우</a>
-        <a href="/student/민희윤" class="student-btn">20210 민희윤</a>
-        <a href="/student/배소윤" class="student-btn">21013 배소윤</a>
-    </div>
+    <!-- 이전 / 홈 / 다음 네비게이션 -->
+    <div class="nav-row">
+        {% if prev_name %}
+        <a href="/student/{{ prev_name }}" class="nav-btn">← 이전 ({{ prev_name }})</a>
+        {% endif %}
 
-    <!-- 3학년 -->
-    <h3 class="grade-title">3학년</h3>
-    <div class="student-grid">
-        <a href="/student/김경원" class="student-btn">31131 김경원</a>
+        <a href="{{ url_for('home') }}" class="nav-btn">홈으로</a>
+
+        {% if next_name %}
+        <a href="/student/{{ next_name }}" class="nav-btn">다음 ({{ next_name }}) →</a>
+        {% endif %}
     </div>
 
 </div>
