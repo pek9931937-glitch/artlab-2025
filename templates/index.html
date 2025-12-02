@@ -2,94 +2,94 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <title>ArtLab 2025 디지털 미술관</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArtLab 2025 Digital Gallery</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-<header>
-    <div class="header-inner">
-        <!-- 고촌고 심볼 -->
-        <img src="{{ url_for('static', filename='gochon-logo.png') }}"
-             alt="고촌고등학교 심볼" class="school-logo">
 
-        <!-- 사이트 제목 -->
-        <div class="title-block">
-            <h1>ArtLab 2025 Digital Gallery</h1>
-            <p class="subtitle">고촌고 아트랩 디지털 갤러리</p>
+    <!-- 상단 로고 + 제목 + 교사 사진 -->
+    <header class="main-header">
+        <div class="logo-title-wrapper">
+            <img src="{{ url_for('static', filename='gochon-logo.png') }}" 
+                 alt="고촌고등학교 로고" 
+                 class="gochon-logo">
+
+            <div class="title-block">
+                <h1>ArtLab 2025 디지털 미술관</h1>
+                <p class="subtitle">고촌고등학교 아트랩 동아리 온라인 전시관</p>
+            </div>
+
+            <div class="teacher-photo-wrapper">
+                <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
+                     alt="지도교사 한지민"
+                     class="teacher-photo"
+                     id="teacherPhoto">
+                <p class="teacher-name">지도교사 : 한지민</p>
+            </div>
         </div>
-    </div>
+    </header>
 
-    <!-- 지도교사 영역 -->
-    <div class="teacher-area">
-        <div class="teacher-photo-wrapper">
-            <img src="{{ url_for('static', filename='teacher.jpg') }}"
-                 alt="지도교사 한지민"
-                 id="teacher-photo">
-        </div>
-        <p class="teacher-name">지도교사 : 한지민</p>
-        <p class="teacher-tip">사진을 클릭하면 확대 / 축소됩니다.</p>
-    </div>
-</header>
-
-<main class="container">
-    <section class="member-section">
+    <!-- 안내 문구 -->
+    <section class="intro-section">
         <h2>아트랩 2025 멤버</h2>
-        <p class="member-guide">
-            이름을 클릭하면 나중에 개인 작품 페이지로 이동하도록 만들 예정입니다.
+        <p class="intro-text">
+            이름을 클릭하면 나중에 각자의 작품 페이지로 이동하도록 만들 예정입니다.
         </p>
+    </section>
 
-        <!-- 1학년 -->
-        <div class="grade-block">
-            <h3>1학년</h3>
-            <div class="member-list">
-                <!-- 5명 1열 -->
-                <a class="member" href="#">10103 곽민지</a>
-                <a class="member" href="#">10108 김채영</a>
-                <a class="member" href="#">10115 양희욱</a>
-                <a class="member" href="#">10123 이현준</a>
-                <a class="member" href="#">10224 이진주</a>
+    <!-- 1학년 영역 -->
+    <section class="grade-section">
+        <h3>1학년</h3>
+        <div class="member-list">
+            <!-- 1학년 11명 : 번호 + 이름, 5명씩 2열 + 마지막 1명 -->
+            <a href="#" class="member-btn">10103 곽민지</a>
+            <a href="#" class="member-btn">10108 김채영</a>
+            <a href="#" class="member-btn">10115 양희욱</a>
+            <a href="#" class="member-btn">10123 이현준</a>
+            <a href="#" class="member-btn">10185 윤종민</a>
 
-                <!-- 5명 2열 -->
-                <a class="member" href="#">10304 김민재</a>
-                <a class="member" href="#">10318 윤종민</a>
-                <a class="member" href="#">10611 서희</a>
-                <a class="member" href="#">10616 이승재</a>
-                <a class="member" href="#">10820 이나연</a>
+            <a href="#" class="member-btn">10224 이진주</a>
+            <a href="#" class="member-btn">10304 김민재</a>
+            <a href="#" class="member-btn">10611 서희</a>
+            <a href="#" class="member-btn">10616 이승재</a>
+            <a href="#" class="member-btn">10820 이나연</a>
 
-                <!-- 마지막 1명 (3번째 줄 단독) -->
-                <a class="member" href="#">10832 조현아</a>
-            </div>
-        </div>
-
-        <!-- 2학년 -->
-        <div class="grade-block">
-            <h3>2학년</h3>
-            <div class="member-list">
-                <a class="member" href="#">20203 김건우</a>
-                <a class="member" href="#">20210 민회윤</a>
-                <a class="member" href="#">21013 배소윤</a>
-            </div>
-        </div>
-
-        <!-- 3학년 -->
-        <div class="grade-block">
-            <h3>3학년</h3>
-            <div class="member-list">
-                <a class="member" href="#">31131 김경원</a>
-            </div>
+            <a href="#" class="member-btn">10832 조현아</a>
         </div>
     </section>
-</main>
 
-<script>
-    // 지도교사 사진 확대/축소 토글
-    const teacherPhoto = document.getElementById('teacher-photo');
-    if (teacherPhoto) {
+    <!-- 2학년 영역 -->
+    <section class="grade-section">
+        <h3>2학년</h3>
+        <div class="member-list">
+            <a href="#" class="member-btn">20203 김건우</a>
+            <a href="#" class="member-btn">20210 민희윤</a>
+            <a href="#" class="member-btn">21013 배소윤</a>
+        </div>
+    </section>
+
+    <!-- 3학년 영역 -->
+    <section class="grade-section">
+        <h3>3학년</h3>
+        <div class="member-list">
+            <a href="#" class="member-btn">31131 김경원</a>
+        </div>
+    </section>
+
+    <!-- 나중에 푸터(학교명, 연도 등)도 필요하면 추가 가능 -->
+    <footer class="main-footer">
+        <p>© 2025 Gochon High School ArtLab. All rights reserved.</p>
+    </footer>
+
+    <!-- 선생님 사진 클릭 시 확대/축소 -->
+    <script>
+        const teacherPhoto = document.getElementById('teacherPhoto');
+
         teacherPhoto.addEventListener('click', () => {
             teacherPhoto.classList.toggle('large');
         });
-    }
-</script>
+    </script>
 </body>
 </html>
+
