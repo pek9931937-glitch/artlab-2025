@@ -33,13 +33,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const closePopup = () => popup.classList.remove("open");
 
+  // X 버튼으로 닫기
   if (closeBtn) {
-    closeBtn.addEventListener("click", closePopup);
+    closeBtn.addEventListener("click", (e) => {
+      e.stopPropagation(); // 버블링 막기
+      closePopup();
+    });
   }
 
-  popup.addEventListener("click", (e) => {
-    if (e.target === popup) {
-      closePopup();
-    }
+  // 팝업 전체(배경 + 안쪽 내용) 클릭해도 닫히게
+  popup.addEventListener("click", () => {
+    closePopup();
   });
 });
