@@ -1,314 +1,38 @@
-/* 전체 기본 스타일 */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  background-color: #f3f4f8;
-  color: #222;
-}
-
-/* 헤더 */
-
-.site-header {
-  background-color: #000;
-  color: #fff;
-  padding: 16px 0 20px;
-}
-
 .header-inner {
   max-width: 1100px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
 }
 
-.logo-area,
-.teacher-area {
-  width: 120px;
-  text-align: center;
+/* 로고 + 텍스트를 가로로 */
+.logo-box {
+  display: flex;
+  align-items: center;
+}
+
+.home-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
 }
 
 .school-logo {
   width: 72px;
   height: 72px;
   object-fit: contain;
+  margin-right: 14px;
 }
 
-.logo-link {
-  display: inline-block;
-}
-
-.title-area {
-  flex: 1;
-  text-align: center;
-}
-
-.title-area h1 {
+.logo-text h1 {
   margin: 0;
-  font-size: 1.9rem;
-  letter-spacing: 0.03em;
+  font-size: 1.8rem;
 }
 
-.subtitle {
-  margin-top: 6px;
-  color: #d1d5db;
+.logo-text .subtitle {
+  margin: 4px 0 0 0;
   font-size: 0.9rem;
-}
-
-.teacher-photo {
-  width: 76px;
-  height: 76px;
-  border-radius: 999px;
-  object-fit: cover;
-  border: 2px solid #fff;
-  display: block;
-  margin: 0 auto 4px auto;
-}
-
-.teacher-caption {
-  margin: 0;
-  font-size: 0.8rem;
-}
-
-/* 메인 공통 */
-
-.page-main {
-  max-width: 1100px;
-  margin: 28px auto 40px;
-  padding: 0 16px;
-}
-
-/* index ─ 멤버 리스트 */
-
-.members-section h2 {
-  margin-top: 0;
-  font-size: 1.6rem;
-}
-
-.members-intro {
-  margin-top: 4px;
-  margin-bottom: 20px;
-  color: #555;
-}
-
-.grade-block {
-  margin-top: 24px;
-}
-
-.grade-block h3 {
-  margin-bottom: 10px;
-  font-size: 1.2rem;
-}
-
-.student-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.student-pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  background-color: #e5e7eb;
-  color: #111827;
-  text-decoration: none;
-  transition: background-color 0.15s ease, transform 0.15s ease,
-    box-shadow 0.15s ease;
-}
-
-.student-pill:hover {
-  background-color: #111827;
-  color: #fff;
-  transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
-}
-
-/* student ─ 작품 카드 */
-
-.student-section h2 {
-  margin-top: 0;
-  font-size: 1.6rem;
-}
-
-.student-intro {
-  margin-top: 4px;
-  margin-bottom: 20px;
-  color: #555;
-}
-
-.artworks-wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 22px;
-}
-
-/* 작품 카드 전체 */
-
-.artwork-card {
-  background-color: #fff;
-  border-radius: 20px;
-  padding: 18px 18px 20px;
-  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
-}
-
-/* ▶ 작품 이미지 영역 (여기 크기 크게) */
-
-.artwork-image-box {
-  background: #eef3ff;
-  border-radius: 20px;
-  height: 260px;              /* 카드 안 이미지 영역 높이 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.18s ease, box-shadow 0.18s ease,
-    background-color 0.18s ease;
-}
-
-.artwork-image-box:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.25);
-  background-color: #e1e8ff;
-}
-
-.artwork-image-placeholder {
-  font-size: 1.05rem;
-  color: #4b5563;
-}
-
-.artwork-title {
-  margin-top: 14px;
-  margin-bottom: 4px;
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.artwork-text {
-  margin: 0;
-  font-size: 0.95rem;
-  color: #4b5563;
-}
-
-/* 하단 네비 버튼 */
-
-.nav-buttons {
-  margin-top: 24px;
-}
-
-.nav-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 18px;
-  border-radius: 999px;
-  border: none;
-  background-color: #111827;
-  color: #fff;
-  text-decoration: none;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
-
-/* 팝업 오버레이 & 팝업 박스 (크게) */
-
-.popup-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.7);
-  display: none; /* .visible 때만 보이도록 */
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.popup-overlay.visible {
-  display: flex;
-}
-
-.popup-content {
-  position: relative;
-  background: #ffffff;
-  width: 90%;
-  max-width: 900px;      /* 팝업 가로 크기 */
-  min-height: 520px;     /* 팝업 세로 기본 높이 */
-  border-radius: 22px;
-  padding: 24px 26px 26px;
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.28);
-  display: flex;
-  flex-direction: column;
-}
-
-/* 팝업 상단 X 버튼 */
-
-.popup-close {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  background: transparent;
-  border: none;
-  font-size: 26px;
-  cursor: pointer;
-  line-height: 1;
-}
-
-/* 팝업 이미지 영역 (여기도 크게) */
-
-.popup-image-box {
-  flex: 1;
-  background: #eef3ff;
-  border-radius: 20px;
-  margin-bottom: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.popup-image-placeholder {
-  font-size: 1.1rem;
-  color: #4b5563;
-  text-align: center;
-  padding: 0 10px;
-}
-
-/* 설명 텍스트 */
-
-.popup-description {
-  margin: 0;
-  font-size: 1.02rem;
-  line-height: 1.7;
-  color: #374151;
-}
-
-/* 반응형 */
-
-@media (max-width: 640px) {
-  .header-inner {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .logo-area,
-  .teacher-area {
-    width: auto;
-  }
-
-  .artwork-image-box {
-    height: 230px;
-  }
-
-  .popup-content {
-    padding: 20px;
-    min-height: 420px;
-  }
+  opacity: 0.8;
 }
