@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
-<body>
+<!-- 학생 ID를 body data 속성에 넣음 -->
+<body data-student-id="{{ student_id }}">
 
 <header class="header">
     <a href="/" class="header-left">
@@ -49,7 +50,8 @@
                 이 영역에는 1번 작품에 대한 제목과 상세한 설명이 들어갈 예정입니다.
                 지금은 예시 문장으로 채워져 있습니다.
             </p>
-            <button class="like-btn" data-liked="false">❤️ 좋아요 0</button>
+            <!-- data-art="1" 로 작품 번호 표시 -->
+            <button class="like-btn" data-art="1" data-liked="false">❤️ 좋아요 0</button>
         </div>
 
         <div class="art-card">
@@ -61,7 +63,8 @@
                 이 영역에는 2번 작품에 대한 제목과 상세한 설명이 들어갈 예정입니다.
                 지금은 예시 문장으로 채워져 있습니다.
             </p>
-            <button class="like-btn" data-liked="false">❤️ 좋아요 0</button>
+            <!-- data-art="2" -->
+            <button class="like-btn" data-art="2" data-liked="false">❤️ 좋아요 0</button>
         </div>
 
     </div>
