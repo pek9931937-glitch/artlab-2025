@@ -1,114 +1,126 @@
 body {
-    font-family: 'Pretendard', sans-serif;
+    font-family: Arial, sans-serif;
+    background: #f6f6f6;
     margin: 0;
-    padding: 30px;
-    background: #f7f7f7;
 }
 
+/* 헤더 */
 .header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    background: white;
+    padding: 20px 40px;
+    border-bottom: 1px solid #ddd;
 }
 
-.logo {
-    height: 100px;
-}
-
-.title {
-    font-size: 38px;
-    font-weight: 700;
-    color: #2c2c2c;
+.logo-area {
+    display: flex;
+    align-items: center;
     text-decoration: none;
 }
 
+.logo {
+    width: 80px;
+    margin-right: 15px;
+}
+
+.title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+}
+
 .teacher {
-    margin-left: auto;
-    height: 70px;
     width: 70px;
+    height: 70px;
     border-radius: 50%;
     cursor: pointer;
 }
 
-.teacher-name {
-    font-size: 14px;
-    color: #555;
-    margin-top: -20px;
-    margin-left: auto;
+/* 팝업 */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
 }
 
-.student-grid {
+.popup-image {
+    width: 350px;
+    border-radius: 15px;
+}
+
+/* 학생 목록 */
+.sub-title {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 30px;
+}
+
+.grade-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-left: 40px;
+    margin-top: 25px;
+}
+
+.grade-box {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 25px;
+    padding-left: 30px;
 }
 
 .student-btn {
-    padding: 10px 18px;
+    display: inline-block;
+    margin: 8px;
+    padding: 12px 20px;
     background: white;
     border-radius: 12px;
     text-decoration: none;
-    color: black;
-    border: 1px solid #ddd;
+    color: #333;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
 }
 
-.gallery-row {
+/* 작품 페이지 */
+.gallery-title {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.art-row {
     display: flex;
-    gap: 25px;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
 }
 
-.work-box {
-    width: 48%;
+.art-box {
+    width: 420px;
     background: white;
+    border-radius: 15px;
     padding: 20px;
-    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
 
-.img-placeholder {
-    background: #dfeaff;
-    height: 250px;
-    border-radius: 12px;
+.art-image {
+    width: 100%;
+    height: 200px;
+    background: #d5e4ff;
+    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .like-btn {
-    width: 100%;
-    padding: 10px;
     margin-top: 10px;
-    border-radius: 8px;
+    padding: 10px 20px;
+    background: #ffccd5;
     border: none;
-    background: #ffdfdf;
+    border-radius: 12px;
     cursor: pointer;
-}
-
-.back-btn {
-    margin-top: 40px;
-    display: inline-block;
-    text-decoration: none;
-}
-
-#popup-bg {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    display: none;
-}
-
-#teacher-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 10px;
-    border-radius: 12px;
-    display: none;
-}
-
-#teacher-popup img {
-    width: 280px;
-    border-radius: 12px;
 }
