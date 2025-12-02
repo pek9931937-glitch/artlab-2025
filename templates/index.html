@@ -1,68 +1,75 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>ArtLab 2025 Digital Museum</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8">
+  <title>ArtLab 2025 Digital Gallery</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body>
-
-<header class="header">
-    <a href="/" class="header-left">
-        <img src="{{ url_for('static', filename='gochon-logo.png') }}" class="logo" alt="고촌고 로고">
-        <span class="title">ArtLab 2025 Digital Museum</span>
-    </a>
-
-    <div class="teacher">
-        <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
-             id="teacher-photo" class="teacher-img" alt="지도교사 한지민">
-        <div class="teacher-name">지도교사 : 한지민</div>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-box">
+        <img src="{{ url_for('static', filename='gochon-logo.png') }}" alt="고촌고 로고" class="school-logo">
+        <h1>ArtLab 2025 Digital Gallery</h1>
+        <p class="subtitle">Gochon High School ArtLab Digital Museum</p>
+      </div>
+      <div class="teacher-box">
+        <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}" alt="지도교사 한지민" class="teacher-photo">
+        <p class="teacher-caption">지도교사 : 한지민</p>
+      </div>
     </div>
-</header>
+  </header>
 
-<!-- 공통 팝업 : 선생님 + 작품 설명용 -->
-<div id="popup" class="popup">
-    <div class="popup-inner">
-        <img id="popup-img" class="popup-img" alt="">
-        <p id="popup-text" class="popup-text"></p>
-    </div>
-</div>
+  <main class="page-main">
+    <section class="member-section">
+      <h2>아트랩 2025 멤버</h2>
+      <p class="member-guide">
+        이름을 클릭하면 각 학생의 작품 페이지로 이동합니다.
+      </p>
 
-<div class="container">
-    <h2>참여 학생 목록입니다.</h2>
+      <!-- 1학년 -->
+      <div class="grade-block">
+        <h3>1학년</h3>
+        <div class="student-grid">
+          {% for s in grouped[1] %}
+            <a class="student-pill"
+               href="{{ url_for('student_page', slug=slug_of(s)) }}">
+              {{ s.id }} {{ s.name }}
+            </a>
+          {% endfor %}
+        </div>
+      </div>
 
-    <!-- 1학년: 5명 / 6명 두 줄 -->
-    <h3>1학년</h3>
-    <div class="grid">
-        {% for num, name in students[:5] %}
-        <a class="btn" href="/student/{{ num }}-{{ name }}">{{ num }} {{ name }}</a>
-        {% endfor %}
-    </div>
-    <div class="grid">
-        {% for num, name in students[5:11] %}
-        <a class="btn" href="/student/{{ num }}-{{ name }}">{{ num }} {{ name }}</a>
-        {% endfor %}
-    </div>
+      <!-- 2학년 -->
+      <div class="grade-block">
+        <h3>2학년</h3>
+        <div class="student-grid">
+          {% for s in grouped[2] %}
+            <a class="student-pill"
+               href="{{ url_for('student_page', slug=slug_of(s)) }}">
+              {{ s.id }} {{ s.name }}
+            </a>
+          {% endfor %}
+        </div>
+      </div>
 
-    <!-- 2학년 -->
-    <h3>2학년</h3>
-    <div class="grid">
-        {% for num, name in students[11:14] %}
-        <a class="btn" href="/student/{{ num }}-{{ name }}">{{ num }} {{ name }}</a>
-        {% endfor %}
-    </div>
+      <!-- 3학년 -->
+      <div class="grade-block">
+        <h3>3학년</h3>
+        <div class="student-grid">
+          {% for s in grouped[3] %}
+            <a class="student-pill"
+               href="{{ url_for('student_page', slug=slug_of(s)) }}">
+              {{ s.id }} {{ s.name }}
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  </main>
 
-    <!-- 3학년 -->
-    <h3>3학년</h3>
-    <div class="grid">
-        {% for num, name in students[14:] %}
-        <a class="btn" href="/student/{{ num }}-{{ name }}">{{ num }} {{ name }}</a>
-        {% endfor %}
-    </div>
-</div>
-
-<script src="{{ url_for('static', filename='popup.js') }}"></script>
-
+  <footer class="site-footer">
+    <p>© 2025 Gochon High School ArtLab Digital Gallery</p>
+  </footer>
 </body>
 </html>
