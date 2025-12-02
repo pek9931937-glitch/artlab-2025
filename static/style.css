@@ -223,3 +223,13 @@ body {
         flex-direction: column;
     }
 }
+.grade-title {
+    margin-top: 24px;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.teacher-name {
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
