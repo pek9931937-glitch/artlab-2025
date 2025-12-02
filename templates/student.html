@@ -1,89 +1,93 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>{{ name }} 작품 갤러리</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="utf-8">
+  <title>{{ student.id }} {{ student.name }} 작품 갤러리</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
-<!-- 학생 ID를 body data 속성에 넣음 -->
-<body data-student-id="{{ student_id }}">
-
-<header class="header">
-    <a href="/" class="header-left">
-        <img src="{{ url_for('static', filename='gochon-logo.png') }}" class="logo" alt="고촌고 로고">
-        <span class="title">ArtLab 2025 Digital Museum</span>
-    </a>
-
-    <div class="teacher">
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-area">
+        <a href="{{ url_for('index') }}" class="logo-link">
+          <img src="{{ url_for('static', filename='gochon-logo.png') }}"
+               alt="고촌고 로고"
+               class="school-logo"
+               onerror="this.style.display='none'">
+        </a>
+      </div>
+      <div class="title-area">
+        <h1>ArtLab 2025 Digital Gallery</h1>
+        <p class="subtitle">Individual Artwork Gallery</p>
+      </div>
+      <div class="teacher-area">
         <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
-             id="teacher-photo" class="teacher-img" alt="지도교사 한지민">
-        <div class="teacher-name">지도교사 : 한지민</div>
+             alt="지도교사 한지민"
+             class="teacher-photo"
+             onerror="this.style.display='none'">
+        <p class="teacher-caption">지도교사 : 한지민</p>
+      </div>
     </div>
-</header>
+  </header>
 
-<!-- 공통 팝업 -->
-<div id="popup" class="popup">
-    <div class="popup-inner">
-        <img id="popup-img" class="popup-img" alt="">
-        <p id="popup-text" class="popup-text"></p>
-    </div>
-</div>
-
-<div class="container">
-
-    <h2>{{ num }} {{ name }} 작품 갤러리</h2>
-    <p class="intro">
+  <main class="page-main">
+    <section class="student-section">
+      <h2>{{ student.id }} {{ student.name }} 작품 갤러리</h2>
+      <p class="student-intro">
         아래 두 작품 영역에는 실제 작품 이미지와 작품 설명이 들어갈 예정입니다.
         현재는 테스트용 문구이며, 작품 제목과 설명은 추후 업데이트될 예정입니다.
-    </p>
+      </p>
 
-    <!-- 작품 1번 / 2번 : 가로로 나란히 배치 -->
-    <div class="art-row">
+      <div class="artworks-wrapper">
+        {% for art in artworks %}
+        <article class="artwork-card">
+          <!-- 클릭 가능한 큰 이미지 영역 -->
+          <div class="artwork-image-box"
+               data-artwork-no="{{ art.no }}">
+            <span class="artwork-image-placeholder">
+              {{ art.no }}번 작품 (이미지 자리)
+            </span>
+          </div>
 
-        <div class="art-card">
-            <div class="art-img">
-                1번 작품 (이미지 자리)
-            </div>
-            <h4 class="art-title">1번 작품 제목입니다.</h4>
-            <p class="art-desc">
-                이 영역에는 1번 작품에 대한 제목과 상세한 설명이 들어갈 예정입니다.
-                지금은 예시 문장으로 채워져 있습니다.
-            </p>
-            <!-- data-art="1" 로 작품 번호 표시 -->
-            <button class="like-btn" data-art="1" data-liked="false">❤️ 좋아요 0</button>
-        </div>
+          <!-- 아래는 카드 안 간단 설명 -->
+          <h3 class="artwork-title">
+            {{ art.no }}번 작품 제목입니다.
+          </h3>
+          <p class="artwork-text">
+            {{ art.description }}
+          </p>
+        </article>
+        {% endfor %}
+      </div>
 
-        <div class="art-card">
-            <div class="art-img">
-                2번 작품 (이미지 자리)
-            </div>
-            <h4 class="art-title">2번 작품 제목입니다.</h4>
-            <p class="art-desc">
-                이 영역에는 2번 작품에 대한 제목과 상세한 설명이 들어갈 예정입니다.
-                지금은 예시 문장으로 채워져 있습니다.
-            </p>
-            <!-- data-art="2" -->
-            <button class="like-btn" data-art="2" data-liked="false">❤️ 좋아요 0</button>
-        </div>
+      <div class="nav-buttons">
+        <!-- 이전/다음 학생 이동은 나중에 필요하면 추가 -->
+        <a href="{{ url_for('index') }}" class="nav-btn">홈</a>
+      </div>
+    </section>
+  </main>
 
+  <!-- 팝업 오버레이 -->
+  <div id="popup-overlay" class="popup-overlay">
+    <div class="popup-content">
+      <button class="popup-close" aria-label="닫기">&times;</button>
+
+      <div class="popup-image-box">
+        <span id="popup-image-placeholder" class="popup-image-placeholder">
+          작품 이미지가 들어갈 영역입니다.
+        </span>
+      </div>
+
+      <p id="popup-description" class="popup-description">
+        <!-- JS로 설명 교체 -->
+      </p>
     </div>
+  </div>
 
-    <div class="nav">
-        {% if prev_id %}
-        <a href="/student/{{ prev_id }}" class="btn-nav">← {{ prev_label }}</a>
-        {% endif %}
-
-        <a href="/" class="btn-nav">홈</a>
-
-        {% if next_id %}
-        <a href="/student/{{ next_id }}" class="btn-nav">{{ next_label }} →</a>
-        {% endif %}
-    </div>
-
-</div>
-
-<script src="{{ url_for('static', filename='popup.js') }}"></script>
-
+  <script>
+    // 파이썬에서 넘긴 작품 설명 데이터 (번호 -> 설명)
+    const popupData = {{ popup_data | tojson }};
+  </script>
+  <script src="{{ url_for('static', filename='popup.js') }}"></script>
 </body>
 </html>
