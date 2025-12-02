@@ -17,9 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* ======================
-       2. 작품 클릭 팝업
-          - 이미지 영역(.art-img) 클릭
-          - 제목/설명 크게 보기
+       2. 작품 클릭 팝업 (제목+설명 크게)
        ====================== */
     const artImgs = document.querySelectorAll(".art-img");
     artImgs.forEach((box) => {
@@ -33,8 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const title = titleEl ? titleEl.textContent.trim() : "";
             const desc = descEl ? descEl.textContent.trim() : "";
 
-            // 작품은 실제 이미지가 아직 없으므로, 텍스트 중심으로 표시
-            popupImg.style.display = "none";  // 이미지 영역 숨김
+            popupImg.style.display = "none";  // 작품 실이미지는 아직 없으므로 텍스트로만
             popupImg.src = "";
             popupText.textContent = `${title}\n\n${desc}`;
             popup.style.display = "flex";
@@ -43,8 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ======================
        3. 팝업 닫기
-          - 배경 클릭
-          - ESC 키
        ====================== */
     if (popup) {
         popup.addEventListener("click", (e) => {
@@ -61,29 +56,61 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* ======================
-       4. 좋아요 버튼 토글
-          - 처음 클릭: +1
-          - 다시 클릭: -1
+       4. 좋아요 - IP + DB 연동
        ====================== */
     const likeButtons = document.querySelectorAll(".like-btn");
+    const studentId = document.body.dataset.studentId;
+
+    // 페이지 로드 시 서버에서 현재 좋아요 상태 가져오기
+    if (studentId && likeButtons.length > 0) {
+        fetch(`/api/likes/${encodeURIComponent(studentId)}`)
+            .then((res) => res.json())
+            .then((data) => {
+                const counts = data.counts || {};
+                const myLikes = data.my_likes || {};
+                likeButtons.forEach((btn) => {
+                    const artNum = parseInt(btn.dataset.art, 10);
+                    const count = counts[artNum] || 0;
+                    const liked = !!myLikes[artNum];
+                    btn.textContent = `❤️ 좋아요 ${count}`;
+                    btn.dataset.liked = liked ? "true" : "false";
+                });
+            })
+            .catch((err) => {
+                console.error("like init error", err);
+            });
+    }
+
+    // 버튼 클릭 시 서버에 토글 요청
     likeButtons.forEach((btn) => {
         btn.addEventListener("click", () => {
-            const liked = btn.getAttribute("data-liked") === "true";
+            const artNum = btn.dataset.art;
+            if (!studentId || !artNum) return;
 
-            // 버튼 텍스트에서 숫자 읽기
-            const text = btn.textContent;
-            const match = text.match(/(\d+)/);
-            let count = match ? parseInt(match[1], 10) : 0;
-
-            if (!liked) {
-                count += 1;
-                btn.setAttribute("data-liked", "true");
-            } else {
-                count = Math.max(0, count - 1);
-                btn.setAttribute("data-liked", "false");
-            }
-
-            btn.textContent = `❤️ 좋아요 ${count}`;
+            fetch("/api/like", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    student_id: studentId,
+                    art_num: artNum,
+                }),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.error) {
+                        console.error("like error", data.error);
+                        return;
+                    }
+                    const count = data.count ?? 0;
+                    const liked = !!data.liked;
+                    btn.textContent = `❤️ 좋아요 ${count}`;
+                    btn.dataset.liked = liked ? "true" : "false";
+                })
+                .catch((err) => {
+                    console.error("like toggle error", err);
+                });
         });
     });
 });
