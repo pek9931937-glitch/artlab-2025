@@ -10,76 +10,71 @@
 
 <header class="header">
     <a href="/" class="header-left">
-        <img src="{{ url_for('static', filename='gochon-logo.png') }}" class="logo">
+        <img src="{{ url_for('static', filename='gochon-logo.png') }}" class="logo" alt="고촌고 로고">
         <span class="title">ArtLab 2025 Digital Museum</span>
     </a>
 
     <div class="teacher">
         <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
-             id="teacher-photo" class="teacher-img">
+             id="teacher-photo" class="teacher-img" alt="지도교사 한지민">
         <div class="teacher-name">지도교사 : 한지민</div>
     </div>
 </header>
 
-<!-- 선생님 사진 팝업 -->
+<!-- 공통 팝업 -->
 <div id="popup" class="popup">
-    <img id="popup-img" class="popup-img">
-</div>
-
-<!-- 작품 팝업 -->
-<div id="art-popup" class="popup">
-    <div class="art-popup-card">
-        <div id="art-popup-img" class="art-img art-img-big"></div>
-        <h4 id="art-popup-title"></h4>
-        <p id="art-popup-desc"></p>
+    <div class="popup-inner">
+        <img id="popup-img" class="popup-img" alt="">
+        <p id="popup-text" class="popup-text"></p>
     </div>
 </div>
 
 <div class="container">
 
     <h2>{{ num }} {{ name }} 작품 갤러리</h2>
+    <p class="intro">
+        아래 두 작품 영역에는 실제 작품 이미지와 작품 설명이 들어갈 예정입니다.
+        현재는 테스트용 문구이며, 작품 제목과 설명은 추후 업데이트될 예정입니다.
+    </p>
 
+    <!-- 작품 1번 / 2번 : 가로로 나란히 배치 -->
     <div class="art-row">
 
-        <!-- 1번 작품 -->
-        <div class="art-card" data-art="1번 작품 (이미지 자리)"
-             data-title="1번 작품 제목"
-             data-desc="1번 작품 설명이 들어갈 예정입니다.">
-            <div class="art-img">1번 작품 (이미지 자리)</div>
-            <h4>1번 작품 제목</h4>
-            <p>1번 작품 설명이 들어갈 예정입니다.</p>
-            <button class="like-btn" data-liked="false">
-                ❤️ 좋아요 <span class="like-count">0</span>
-            </button>
+        <div class="art-card">
+            <div class="art-img">
+                1번 작품 (이미지 자리)
+            </div>
+            <h4 class="art-title">1번 작품 제목입니다.</h4>
+            <p class="art-desc">
+                이 영역에는 1번 작품에 대한 제목과 상세한 설명이 들어갈 예정입니다.
+                지금은 예시 문장으로 채워져 있습니다.
+            </p>
+            <button class="like-btn" data-liked="false">❤️ 좋아요 0</button>
         </div>
 
-        <!-- 2번 작품 -->
-        <div class="art-card" data-art="2번 작품 (이미지 자리)"
-             data-title="2번 작품 제목"
-             data-desc="2번 작품 설명이 들어갈 예정입니다.">
-            <div class="art-img">2번 작품 (이미지 자리)</div>
-            <h4>2번 작품 제목</h4>
-            <p>2번 작품 설명이 들어갈 예정입니다.</p>
-            <button class="like-btn" data-liked="false">
-                ❤️ 좋아요 <span class="like-count">0</span>
-            </button>
+        <div class="art-card">
+            <div class="art-img">
+                2번 작품 (이미지 자리)
+            </div>
+            <h4 class="art-title">2번 작품 제목입니다.</h4>
+            <p class="art-desc">
+                이 영역에는 2번 작품에 대한 제목과 상세한 설명이 들어갈 예정입니다.
+                지금은 예시 문장으로 채워져 있습니다.
+            </p>
+            <button class="like-btn" data-liked="false">❤️ 좋아요 0</button>
         </div>
 
     </div>
 
     <div class="nav">
         {% if prev_id %}
-        <a href="/student/{{ prev_id }}" class="btn-nav">
-            ← 이전 ({{ prev_name }})
-        </a>
+        <a href="/student/{{ prev_id }}" class="btn-nav">← {{ prev_label }}</a>
         {% endif %}
 
         <a href="/" class="btn-nav">홈</a>
 
         {% if next_id %}
-        <a href="/student/{{ next_id }}" class="btn-nav">
-            다음 ({{ next_name }}) →
-        </a>
+        <a href="/student/{{ next_id }}" class="btn-nav">{{ next_label }} →</a>
         {% endif %}
     </div>
 
