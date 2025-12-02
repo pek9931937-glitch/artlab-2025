@@ -3,7 +3,7 @@ import os
 
 app = Flask(__name__)
 
-# 학생 정보 (학번, 이름, URL용 ID)
+# 학생 정보 (학번, 이름)
 students = [
     # 1학년
     ("10103", "곽민지"),
@@ -17,17 +17,14 @@ students = [
     ("10616", "이승재"),
     ("10820", "이난영"),
     ("10832", "조현아"),
-
     # 2학년
     ("20203", "김건우"),
     ("20210", "민희윤"),
     ("21013", "배소윤"),
-
     # 3학년
     ("31131", "김경원"),
 ]
 
-# URL용 ID 생성
 student_ids = [f"{num}-{name}" for num, name in students]
 
 
@@ -47,6 +44,9 @@ def student_page(student_id):
     prev_id = student_ids[idx - 1] if idx > 0 else None
     next_id = student_ids[idx + 1] if idx < len(student_ids) - 1 else None
 
+    prev_name = students[idx - 1][1] if idx > 0 else None
+    next_name = students[idx + 1][1] if idx < len(student_ids) - 1 else None
+
     return render_template(
         "student.html",
         student_id=student_id,
@@ -54,6 +54,8 @@ def student_page(student_id):
         name=name,
         prev_id=prev_id,
         next_id=next_id,
+        prev_name=prev_name,
+        next_name=next_name,
     )
 
 
