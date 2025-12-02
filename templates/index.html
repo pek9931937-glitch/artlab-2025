@@ -56,4 +56,99 @@
                 <a class="student-card"
                    href="{{ url_for('student_page', name='이현준') }}">
                     <span class="student-name">10123 이현준</span>
-               
+                </a>
+                <a class="student-card"
+                   href="{{ url_for('student_page', name='이진주') }}">
+                    <span class="student-name">10224 이진주</span>
+                </a>
+                <a class="student-card"
+                   href="{{ url_for('student_page', name='김민재') }}">
+                    <span class="student-name">10304 김민재</span>
+                </a>
+                <a class="student-card"
+                   href="{{ url_for('student_page', name='윤종민') }}">
+                    <span class="student-name">10318 윤종민</span>
+                </a>
+                <a class="student-card"
+                   href="{{ url_for('student_page', name='서희') }}">
+                    <span class="student-name">10611 서희</span>
+                </a>
+                <a class="student-card"
+                   href="{{ url_for('student_page', name='이승재') }}">
+                    <span class="student-name">10616 이승재</span>
+                </a>
+                <a class="student-card"
+                   href="{{ url_for('student_page', name='이난영') }}">
+                    <span class="student-name">10820 이난영</span>
+                </a>
+                <a class="student-card"
+                   href="{{ url_for('student_page', name='조현아') }}">
+                    <span class="student-name">10832 조현아</span>
+                </a>
+            </div>
+
+            <!-- 2학년 -->
+            <h3 class="grade-title">2학년</h3>
+            <div class="student-grid">
+                <a class="student-card"
+                   href="{{ url_for('student_page', name='김건우') }}">
+                    <span class="student-name">20203 김건우</span>
+                </a>
+                <a class="student-card"
+                   href="{{ url_for('student_page', name='민희윤') }}">
+                    <span class="student-name">20210 민희윤</span>
+                </a>
+                <a class="student-card"
+                   href="{{ url_for('student_page', name='배소윤') }}">
+                    <span class="student-name">21013 배소윤</span>
+                </a>
+            </div>
+
+            <!-- 3학년 -->
+            <h3 class="grade-title">3학년</h3>
+            <div class="student-grid">
+                <a class="student-card"
+                   href="{{ url_for('student_page', name='김경원') }}">
+                    <span class="student-name">31131 김경원</span>
+                </a>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- 선생님 사진 팝업 모달 -->
+    <div class="modal" id="teacher-modal">
+        <div class="modal-backdrop" id="teacher-modal-backdrop"></div>
+        <div class="modal-content">
+            <img
+                src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
+                alt="지도교사 한지민 확대"
+                class="modal-image"
+            >
+        </div>
+    </div>
+
+    <!-- 선생님 사진 팝업 스크립트 (지금 쓰는 CSS 구조 그대로 사용) -->
+    <script>
+        const teacherPhoto = document.getElementById("teacher-photo");
+        const teacherModal = document.getElementById("teacher-modal");
+        const teacherBackdrop = document.getElementById("teacher-modal-backdrop");
+
+        if (teacherPhoto && teacherModal && teacherBackdrop) {
+            teacherPhoto.addEventListener("click", () => {
+                teacherModal.classList.add("show");
+            });
+
+            teacherBackdrop.addEventListener("click", () => {
+                teacherModal.classList.remove("show");
+            });
+
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape") {
+                    teacherModal.classList.remove("show");
+                }
+            });
+        }
+    </script>
+</body>
+</html>
