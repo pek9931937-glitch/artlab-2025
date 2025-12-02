@@ -131,3 +131,35 @@ body {
   font-size: 0.9rem;
   color: #222;
   borde
+   /* ========================================
+   팝업 강제 정상화 (최우선 적용)
+========================================= */
+#teacher-popup,
+#artwork-popup {
+  position: fixed !important;
+  inset: 0 !important;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(15, 23, 42, 0.55) !important;
+  z-index: 999999 !important;
+}
+
+#teacher-popup.open,
+#artwork-popup.open {
+  display: flex !important;
+}
+
+#teacher-popup .popup-inner,
+#artwork-popup .popup-inner {
+  position: relative !important;
+  background: #fff !important;
+  border-radius: 22px !important;
+  padding: 28px !important;
+  width: 92% !important;
+  max-width: 960px !important;
+  max-height: 82vh !important;
+  overflow-y: auto !important;
+  box-sizing: border-box !important;
+}
+
