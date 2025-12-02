@@ -1,208 +1,108 @@
 import os
-import sqlite3
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, abort
 
 app = Flask(__name__)
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "likes.db")
-
-# 학생 정보 (학번, 이름)
-students = [
-    # 1학년 (11명)
-    ("10103", "곽민지"),
-    ("10108", "김채영"),
-    ("10115", "양희욱"),
-    ("10123", "이현준"),
-    ("10224", "이진주"),
-    ("10304", "김민재"),
-    ("10318", "윤종민"),
-    ("10611", "서희"),
-    ("10616", "이승재"),
-    ("10820", "이난영"),
-    ("10832", "조현아"),
-    # 2학년 (3명)
-    ("20203", "김건우"),
-    ("20210", "민희윤"),
-    ("21013", "배소윤"),
-    # 3학년 (1명)
-    ("31131", "김경원"),
+# -----------------------------
+#  학생 목록 (학년 + 학번 + 이름)
+# -----------------------------
+STUDENTS = [
+    # 1학년
+    {"grade": 1, "id": "10103", "name": "곽민지"},
+    {"grade": 1, "id": "10108", "name": "김채영"},
+    {"grade": 1, "id": "10115", "name": "양희욱"},
+    {"grade": 1, "id": "10123", "name": "이현준"},
+    {"grade": 1, "id": "10224", "name": "이진주"},
+    {"grade": 1, "id": "10304", "name": "김민재"},
+    {"grade": 1, "id": "10318", "name": "윤종민"},
+    {"grade": 1, "id": "10611", "name": "서희"},
+    {"grade": 1, "id": "10616", "name": "이승재"},
+    {"grade": 1, "id": "10820", "name": "이난영"},
+    {"grade": 1, "id": "10832", "name": "조현아"},
+    # 2학년
+    {"grade": 2, "id": "20203", "name": "김건우"},
+    {"grade": 2, "id": "20210", "name": "민희윤"},
+    {"grade": 2, "id": "21013", "name": "배소윤"},
+    # 3학년
+    {"grade": 3, "id": "31131", "name": "김경원"},
 ]
 
-# URL용 ID (예: "10108-김채영")
-student_ids = [f"{num}-{name}" for num, name in students]
+# 정렬(학년 → 학번)
+STUDENTS.sort(key=lambda s: (s["grade"], s["id"]))
 
 
-def get_db():
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
-    return conn
+def slug_of(student):
+    """URL용 슬러그: 예) 10103-곽민지"""
+    return f'{student["id"]}-{student["name"]}'
 
 
-def init_db():
-    conn = get_db()
-    cur = conn.cursor()
-    cur.execute(
-        """
-        CREATE TABLE IF NOT EXISTS likes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            student_id TEXT NOT NULL,
-            art_num INTEGER NOT NULL,
-            ip TEXT NOT NULL
-        )
-        """
-    )
-    conn.commit()
-    conn.close()
+def find_student_by_slug(slug):
+    for s in STUDENTS:
+        if slug_of(s) == slug:
+            return s
+    return None
 
 
-@app.before_first_request
-def before_first_request():
-    init_db()
-
-
-def get_client_ip():
-    # Render 등 프록시 환경 고려
-    forwarded = request.headers.get("X-Forwarded-For", "")
-    if forwarded:
-        return forwarded.split(",")[0].strip()
-    return request.remote_addr or "unknown"
-
-
+# -----------------------------
+#  라우트
+# -----------------------------
 @app.route("/")
-def home():
-    return render_template("index.html", students=students)
+def index():
+    # 학년별 그룹
+    grouped = {1: [], 2: [], 3: []}
+    for s in STUDENTS:
+        grouped[s["grade"]].append(s)
+
+    return render_template(
+        "index.html",
+        grouped=grouped,
+        slug_of=slug_of,
+    )
 
 
-@app.route("/student/<student_id>")
-def student_page(student_id):
-    if student_id not in student_ids:
-        return "Not Found", 404
+@app.route("/student/<slug>")
+def student_page(slug):
+    student = find_student_by_slug(slug)
+    if not student:
+        abort(404)
 
-    idx = student_ids.index(student_id)
-    num, name = students[idx]
+    # 이전/다음 학생 찾기
+    idx = STUDENTS.index(student)
+    prev_student = STUDENTS[idx - 1] if idx > 0 else None
+    next_student = STUDENTS[idx + 1] if idx < len(STUDENTS) - 1 else None
 
-    prev_id = prev_label = None
-    next_id = next_label = None
-
-    if idx > 0:
-        prev_num, prev_name = students[idx - 1]
-        prev_id = student_ids[idx - 1]
-        prev_label = f"{prev_num} {prev_name}"
-
-    if idx < len(students) - 1:
-        next_num, next_name = students[idx + 1]
-        next_id = student_ids[idx + 1]
-        next_label = f"{next_num} {next_name}"
+    # 현재는 예시용 더미 데이터 (이미지 파일 넣으면 image 필드에 경로 지정하면 됨)
+    artworks = [
+        {
+            "no": 1,
+            "title": "1번 작품 제목입니다.",
+            "description": "이 영역에는 1번 작품에 대한 제목과 상세한 설명이 들어갈 예정입니다. 지금은 예시 문장으로 채워져 있습니다.",
+            "placeholder_label": "1번 작품 (이미지 자리)",
+            "image": None,  # 실제 이미지 파일 사용 시 예: url_for('static', filename='art/10103_1.jpg')
+        },
+        {
+            "no": 2,
+            "title": "2번 작품 제목입니다.",
+            "description": "이 영역에는 2번 작품에 대한 제목과 상세한 설명이 들어갈 예정입니다. 지금은 예시 문장으로 채워져 있습니다.",
+            "placeholder_label": "2번 작품 (이미지 자리)",
+            "image": None,
+        },
+    ]
 
     return render_template(
         "student.html",
-        student_id=student_id,
-        num=num,
-        name=name,
-        prev_id=prev_id,
-        next_id=next_id,
-        prev_label=prev_label,
-        next_label=next_label,
+        student=student,
+        artworks=artworks,
+        prev_student=prev_student,
+        next_student=next_student,
+        slug_of=slug_of,
     )
 
 
-# ---------- 좋아요 API ----------
-
-@app.route("/api/likes/<student_id>", methods=["GET"])
-def api_get_likes(student_id):
-    """특정 학생 페이지의 작품 1,2에 대한 전체 좋아요 개수 + 현재 IP의 상태 반환"""
-    if student_id not in student_ids:
-        return jsonify({"error": "not found"}), 404
-
-    ip = get_client_ip()
-    conn = get_db()
-    cur = conn.cursor()
-
-    # 전체 카운트
-    cur.execute(
-        "SELECT art_num, COUNT(*) as cnt FROM likes WHERE student_id = ? GROUP BY art_num",
-        (student_id,),
-    )
-    counts_raw = cur.fetchall()
-    counts = {row["art_num"]: row["cnt"] for row in counts_raw}
-
-    # 현재 IP가 누른 상태
-    cur.execute(
-        "SELECT art_num FROM likes WHERE student_id = ? AND ip = ?",
-        (student_id, ip),
-    )
-    my_rows = cur.fetchall()
-    my_likes = {row["art_num"]: True for row in my_rows}
-
-    conn.close()
-
-    # 항상 1,2 키가 있도록 채워 넣기
-    data = {
-        "counts": {
-            1: counts.get(1, 0),
-            2: counts.get(2, 0),
-        },
-        "my_likes": {
-            1: my_likes.get(1, False),
-            2: my_likes.get(2, False),
-        },
-    }
-    return jsonify(data)
-
-
-@app.route("/api/like", methods=["POST"])
-def api_toggle_like():
-    """좋아요 토글: 없으면 추가, 있으면 삭제 (IP 기준 1인 1회)"""
-    data = request.get_json(silent=True) or {}
-    student_id = data.get("student_id")
-    art_num = data.get("art_num")
-
-    if student_id not in student_ids:
-        return jsonify({"error": "not found"}), 404
-    try:
-        art_num = int(art_num)
-    except (TypeError, ValueError):
-        return jsonify({"error": "bad art_num"}), 400
-    if art_num not in (1, 2):
-        return jsonify({"error": "bad art_num"}), 400
-
-    ip = get_client_ip()
-    conn = get_db()
-    cur = conn.cursor()
-
-    # 이미 눌렀는지 확인
-    cur.execute(
-        "SELECT id FROM likes WHERE student_id = ? AND art_num = ? AND ip = ?",
-        (student_id, art_num, ip),
-    )
-    row = cur.fetchone()
-
-    if row:
-        # 이미 있으면 삭제 = 좋아요 취소
-        cur.execute("DELETE FROM likes WHERE id = ?", (row["id"],))
-        liked = False
-    else:
-        # 없으면 추가
-        cur.execute(
-            "INSERT INTO likes (student_id, art_num, ip) VALUES (?, ?, ?)",
-            (student_id, art_num, ip),
-        )
-        liked = True
-
-    # 현재 카운트 다시 계산
-    cur.execute(
-        "SELECT COUNT(*) as cnt FROM likes WHERE student_id = ? AND art_num = ?",
-        (student_id, art_num),
-    )
-    cnt_row = cur.fetchone()
-    count = cnt_row["cnt"] if cnt_row else 0
-
-    conn.commit()
-    conn.close()
-
-    return jsonify({"liked": liked, "count": count})
-
-
+# -----------------------------
+#  Render 실행 설정
+# -----------------------------
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
+    # Render에서 반드시 host=0.0.0.0 / 지정 포트 사용
     app.run(host="0.0.0.0", port=port, debug=False)
