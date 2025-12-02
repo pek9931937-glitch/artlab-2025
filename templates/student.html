@@ -15,14 +15,24 @@
     </a>
 
     <div class="teacher">
-        <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}" id="teacher-photo" class="teacher-img">
+        <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
+             id="teacher-photo" class="teacher-img">
         <div class="teacher-name">지도교사 : 한지민</div>
     </div>
 </header>
 
-<!-- 팝업 -->
+<!-- 선생님 사진 팝업 -->
 <div id="popup" class="popup">
     <img id="popup-img" class="popup-img">
+</div>
+
+<!-- 작품 팝업 -->
+<div id="art-popup" class="popup">
+    <div class="art-popup-card">
+        <div id="art-popup-img" class="art-img art-img-big"></div>
+        <h4 id="art-popup-title"></h4>
+        <p id="art-popup-desc"></p>
+    </div>
 </div>
 
 <div class="container">
@@ -31,31 +41,45 @@
 
     <div class="art-row">
 
-        <div class="art-card">
+        <!-- 1번 작품 -->
+        <div class="art-card" data-art="1번 작품 (이미지 자리)"
+             data-title="1번 작품 제목"
+             data-desc="1번 작품 설명이 들어갈 예정입니다.">
             <div class="art-img">1번 작품 (이미지 자리)</div>
             <h4>1번 작품 제목</h4>
             <p>1번 작품 설명이 들어갈 예정입니다.</p>
-            <button class="like-btn">❤️ 좋아요 0</button>
+            <button class="like-btn" data-liked="false">
+                ❤️ 좋아요 <span class="like-count">0</span>
+            </button>
         </div>
 
-        <div class="art-card">
+        <!-- 2번 작품 -->
+        <div class="art-card" data-art="2번 작품 (이미지 자리)"
+             data-title="2번 작품 제목"
+             data-desc="2번 작품 설명이 들어갈 예정입니다.">
             <div class="art-img">2번 작품 (이미지 자리)</div>
             <h4>2번 작품 제목</h4>
             <p>2번 작품 설명이 들어갈 예정입니다.</p>
-            <button class="like-btn">❤️ 좋아요 0</button>
+            <button class="like-btn" data-liked="false">
+                ❤️ 좋아요 <span class="like-count">0</span>
+            </button>
         </div>
 
     </div>
 
     <div class="nav">
         {% if prev_id %}
-        <a href="/student/{{ prev_id }}" class="btn-nav">← 이전</a>
+        <a href="/student/{{ prev_id }}" class="btn-nav">
+            ← 이전 ({{ prev_name }})
+        </a>
         {% endif %}
 
         <a href="/" class="btn-nav">홈</a>
 
         {% if next_id %}
-        <a href="/student/{{ next_id }}" class="btn-nav">다음 →</a>
+        <a href="/student/{{ next_id }}" class="btn-nav">
+            다음 ({{ next_name }}) →
+        </a>
         {% endif %}
     </div>
 
