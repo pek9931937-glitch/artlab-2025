@@ -2,124 +2,72 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>ArtLab 2025 디지털 미술관</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='style.css') }}"
-    >
+    <title>ArtLab 2025 Digital Gallery</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-<header class="main-header">
-    <div class="header-inner">
-        <!-- 가운데: 학교 로고 + 사이트 제목 -->
-        <div class="logo-title">
-            <img
-                src="{{ url_for('static', filename='gochon-logo.png') }}"
-                alt="고촌고등학교 로고"
-                class="school-logo"
-            >
-            <span class="site-title">ArtLab 2025 디지털 미술관</span>
-        </div>
 
-        <!-- 오른쪽: 지도교사 사진 (클릭하면 확대/축소) -->
-        <div class="teacher">
-            <img
-                src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
-                alt="지도교사 한지민"
-                class="teacher-photo"
-                id="teacher-photo"
-            >
-            <div class="teacher-name">지도교사 : 한지민</div>
-        </div>
+<body>
+
+<header class="top-bar">
+    <a href="{{ url_for('home') }}" class="logo-title">
+        <img src="{{ url_for('static', filename='gochon-logo.png') }}" class="school-logo">
+        <span class="site-title">ArtLab 2025 Digital Gallery</span>
+    </a>
+
+    <div class="teacher-info">
+        <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}" 
+             class="teacher-photo" id="teacher-photo">
+        <div class="teacher-name">지도교사 : 한지민</div>
     </div>
 </header>
 
-<main class="container">
-    <section class="intro">
-        <h2 class="section-title">아트랩 2025 멤버</h2>
-        <p class="section-desc">
-            이름을 클릭하면 나중에 개인 작품 페이지로 이동하도록 만들 예정입니다.
-        </p>
-    </section>
+<!-- 팝업 모달 -->
+<div id="teacher-modal" class="modal">
+    <span class="modal-close">&times;</span>
+    <img class="modal-content" id="teacher-modal-img">
+</div>
+
+<div class="page-container">
+
+    <h2 class="main-title">아트랩 2025 멤버</h2>
+    <p class="intro-text">
+        이름을 클릭하면 개인 작품 페이지로 이동하도록 만든 디지털 미술관입니다.
+    </p>
 
     <!-- 1학년 -->
-    <section class="grade-section">
-        <h3 class="grade-title">1학년</h3>
-        <div class="member-grid grade-1">
-            <a href="{{ url_for('student_page', name='곽민지') }}" class="member-btn">
-                10103 곽민지
-            </a>
-            <a href="{{ url_for('student_page', name='김채영') }}" class="member-btn">
-                10108 김채영
-            </a>
-            <a href="{{ url_for('student_page', name='양희욱') }}" class="member-btn">
-                10115 양희욱
-            </a>
-            <a href="{{ url_for('student_page', name='이현준') }}" class="member-btn">
-                10123 이현준
-            </a>
-            <a href="{{ url_for('student_page', name='이진주') }}" class="member-btn">
-                10224 이진주
-            </a>
-
-            <a href="{{ url_for('student_page', name='김민재') }}" class="member-btn">
-                10304 김민재
-            </a>
-            <a href="{{ url_for('student_page', name='윤종민') }}" class="member-btn">
-                10318 윤종민
-            </a>
-            <a href="{{ url_for('student_page', name='서희') }}" class="member-btn">
-                10611 서희
-            </a>
-            <a href="{{ url_for('student_page', name='이승재') }}" class="member-btn">
-                10616 이승재
-            </a>
-            <a href="{{ url_for('student_page', name='이난영') }}" class="member-btn">
-                10820 이난영
-            </a>
-
-            <a href="{{ url_for('student_page', name='조현아') }}" class="member-btn">
-                10832 조현아
-            </a>
-        </div>
-    </section>
+    <h3 class="grade-title">1학년</h3>
+    <div class="student-grid">
+        <a href="/student/곽민지" class="student-btn">10103 곽민지</a>
+        <a href="/student/김채영" class="student-btn">10108 김채영</a>
+        <a href="/student/양희욱" class="student-btn">10115 양희욱</a>
+        <a href="/student/이현준" class="student-btn">10123 이현준</a>
+        <a href="/student/이진주" class="student-btn">10224 이진주</a>
+        <a href="/student/김민재" class="student-btn">10304 김민재</a>
+        <a href="/student/윤종민" class="student-btn">10318 윤종민</a>
+        <a href="/student/서희" class="student-btn">10611 서희</a>
+        <a href="/student/이승재" class="student-btn">10616 이승재</a>
+        <a href="/student/이난영" class="student-btn">10820 이난영</a>
+        <a href="/student/조현아" class="student-btn">10832 조현아</a>
+    </div>
 
     <!-- 2학년 -->
-    <section class="grade-section">
-        <h3 class="grade-title">2학년</h3>
-        <div class="member-grid grade-2">
-            <a href="{{ url_for('student_page', name='김건우') }}" class="member-btn">
-                20203 김건우
-            </a>
-            <a href="{{ url_for('student_page', name='민희윤') }}" class="member-btn">
-                20210 민희윤
-            </a>
-            <a href="{{ url_for('student_page', name='배소윤') }}" class="member-btn">
-                21013 배소윤
-            </a>
-        </div>
-    </section>
+    <h3 class="grade-title">2학년</h3>
+    <div class="student-grid">
+        <a href="/student/김건우" class="student-btn">20203 김건우</a>
+        <a href="/student/민희윤" class="student-btn">20210 민희윤</a>
+        <a href="/student/배소윤" class="student-btn">21013 배소윤</a>
+    </div>
 
     <!-- 3학년 -->
-    <section class="grade-section">
-        <h3 class="grade-title">3학년</h3>
-        <div class="member-grid grade-3">
-            <a href="{{ url_for('student_page', name='김경원') }}" class="member-btn">
-                31131 김경원
-            </a>
-        </div>
-    </section>
-</main>
+    <h3 class="grade-title">3학년</h3>
+    <div class="student-grid">
+        <a href="/student/김경원" class="student-btn">31131 김경원</a>
+    </div>
 
-<script>
-    // 지도교사 사진 클릭 시 확대/축소
-    const teacherPhoto = document.getElementById('teacher-photo');
-    if (teacherPhoto) {
-        teacherPhoto.addEventListener('click', () => {
-            teacherPhoto.classList.toggle('large');
-        });
-    }
-</script>
+</div>
+
+<script src="{{ url_for('static', filename='popup.js') }}"></script>
+
 </body>
 </html>
+
