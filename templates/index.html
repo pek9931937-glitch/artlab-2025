@@ -1,50 +1,56 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>ArtLab 2025 Digital Museum</title>
-<link rel="stylesheet" href="/static/style.css">
+    <meta charset="UTF-8">
+    <title>ArtLab 2025 Digital Museum</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
 
-<!-- 헤더 -->
 <header class="header">
-    <a href="/" class="logo-area">
-        <img src="/static/gochon_logo.png" class="logo">
-        <h1 class="title">ArtLab 2025 Digital Museum</h1>
+    <a href="/" class="header-left">
+        <img src="{{ url_for('static', filename='gochon-logo.png') }}" class="logo">
+        <span class="title">ArtLab 2025 Digital Museum</span>
     </a>
 
-    <img src="/static/teacher.jpg" class="teacher" onclick="openPopup()">
+    <div class="teacher">
+        <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}" id="teacher-photo" class="teacher-img">
+        <div class="teacher-name">지도교사 : 한지민</div>
+    </div>
 </header>
 
 <!-- 팝업 -->
-<div id="popup" class="popup" onclick="closePopup()">
-    <img src="/static/teacher.jpg" class="popup-image">
+<div id="popup" class="popup">
+    <img id="popup-img" class="popup-img">
 </div>
 
-<h2 class="sub-title">참여 학생 목록입니다.</h2>
+<div class="container">
+    <h2>참여 학생 목록입니다.</h2>
 
-<div class="student-wrapper">
-    {% for grade, members in students.items() %}
-        <h3 class="grade-title">{{ grade }}</h3>
-        <div class="grade-box">
-            {% for number, name in members %}
-                <a class="student-btn" href="/student/{{ name }}">
-                    {{ number }} {{ name }}
-                </a>
-            {% endfor %}
-        </div>
-    {% endfor %}
+    <h3>1학년</h3>
+    <div class="grid">
+        {% for num, name in students[:11] %}
+        <a class="btn" href="/student/{{ num }}-{{ name }}">{{ num }} {{ name }}</a>
+        {% endfor %}
+    </div>
+
+    <h3>2학년</h3>
+    <div class="grid">
+        {% for num, name in students[11:14] %}
+        <a class="btn" href="/student/{{ num }}-{{ name }}">{{ num }} {{ name }}</a>
+        {% endfor %}
+    </div>
+
+    <h3>3학년</h3>
+    <div class="grid">
+        {% for num, name in students[14:] %}
+        <a class="btn" href="/student/{{ num }}-{{ name }}">{{ num }} {{ name }}</a>
+        {% endfor %}
+    </div>
 </div>
 
-<script>
-function openPopup() {
-    document.getElementById("popup").style.display = "flex";
-}
-function closePopup() {
-    document.getElementById("popup").style.display = "none";
-}
-</script>
+<script src="{{ url_for('static', filename='popup.js') }}"></script>
 
 </body>
 </html>
