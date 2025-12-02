@@ -1,188 +1,214 @@
-/* 기본 폰트/배경 */
-body {
+/* 기본 리셋 */
+* {
+    box-sizing: border-box;
     margin: 0;
-    background: #f6f6f6;
-    font-family: 'Arial', sans-serif;
+    padding: 0;
 }
 
-/* 상단 헤더 */
-.top-bar {
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: #f5f5f7;
+    color: #222;
+}
+
+/* 헤더 영역 */
+.header {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    background: #000000;
-    color: #ffffff;
-    padding: 14px 32px;
-}
-
-/* 로고 + 제목(홈 링크) */
-.logo-title {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-}
-
-.school-logo {
-    width: 58px;
-    height: 58px;
-    margin-right: 16px;
-}
-
-/* 제목 글씨 크게 */
-.site-title {
-    font-size: 32px;      /* 고촌고 로고와 균형 맞게 크게 */
-    font-weight: 700;
-    color: #ffffff;
-}
-
-.teacher-info {
-    text-align: center;
-}
-
-.teacher-photo {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.teacher-name {
-    font-size: 14px;
-    margin-top: 4px;
-}
-
-/* 지도교사 사진 팝업 모달 */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    padding-top: 80px;
-    left: 0;
+    padding: 16px 32px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    position: sticky;
     top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.65);
+    z-index: 10;
 }
 
-.modal-content {
-    display: block;
-    margin: auto;
-    width: 90%;
-    max-width: 420px;   /* 팝업 이미지 크게 */
-}
-
-.modal-close {
-    position: absolute;
-    top: 40px;
-    right: 50px;
-    color: #ffffff;
-    font-size: 48px;
-    cursor: pointer;
-}
-
-/* 공통 컨테이너 */
-.page-container {
-    width: 85%;
-    margin: 40px auto 60px auto;
-}
-
-.main-title {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-.intro-text {
-    font-size: 16px;
-    color: #555555;
-    margin-bottom: 24px;
-}
-
-.grade-title {
-    margin-top: 24px;
-    margin-bottom: 8px;
-    font-size: 20px;
-}
-
-/* 학생 버튼 그리드 */
-.student-grid {
+.header-left,
+.header-center,
+.header-right {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 8px;
-}
-
-.student-btn {
-    padding: 10px 20px;
-    background: #ececec;
-    border-radius: 16px;
-    text-decoration: none;
-    color: #000000;
-    font-size: 14px;
-}
-
-/* 작품 카드 - 세로 배치 */
-.art-column {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-    margin-top: 24px;
-}
-
-.art-card {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 16px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-}
-
-.art-img {
-    width: 100%;
-    height: 180px;
-    background: #dbe5ff;
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
     align-items: center;
-    color: #555555;
-    margin-bottom: 12px;
 }
 
-/* 좋아요 버튼 */
-.like-btn {
-    margin-top: 12px;
-    background: #ffb0b0;
-    border: none;
-    padding: 8px 18px;
-    border-radius: 12px;
+.logo {
+    height: 60px;
+    width: auto;
+}
+
+.header-title-link {
+    text-decoration: none;
+}
+
+.header-title {
+    font-size: 2.2rem; /* 제목 글씨 크게 */
+    font-weight: 800;
+    text-align: center;
+    color: #222222;
+}
+
+/* 선생님 사진 */
+.teacher-photo {
+    height: 72px;
+    width: 72px;
+    border-radius: 50%;
+    object-fit: cover;
     cursor: pointer;
-    font-size: 14px;
+    border: 2px solid #ddd;
 }
 
-/* 학생 페이지 하단 네비게이션 */
-.nav-row {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
+/* 메인 영역 */
+.main {
+    max-width: 1200px;
+    margin: 32px auto;
+    padding: 0 16px;
+}
+
+.section {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 24px 24px 32px 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* 학생 목록 그리드 */
+.student-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 16px;
 }
 
-.nav-btn {
-    padding: 10px 20px;
-    background: #dddddd;
-    border-radius: 14px;
+.student-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 8px;
+    border-radius: 12px;
+    background-color: #f0f4ff;
     text-decoration: none;
-    color: #000000;
-    font-size: 14px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
 }
 
-/* 모바일 대응 */
-@media (max-width: 768px) {
-    .page-container {
-        width: 92%;
-    }
+.student-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+    background-color: #e1ebff;
+}
 
-    .site-title {
-        font-size: 24px;
-    }
+.student-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f3b7b;
+}
+
+/* 학생 상세 페이지 - 작품 영역 */
+/* 두 작품을 가로로 나란히 배치 */
+.artwork-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.artwork {
+    flex: 1 1 280px;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.artwork-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.artwork-image {
+    width: 100%;
+    max-height: 520px; /* 세로 이미지 기준 */
+    object-fit: contain;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    background-color: #fafafa;
+}
+
+.artwork-image:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* 하단 네비게이션 */
+.student-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+.nav-link,
+.nav-disabled {
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 0.95rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    background-color: #f0f4ff;
+    color: #1f3b7b;
+    font-weight: 600;
+}
+
+.nav-link:hover {
+    background-color: #dbe6ff;
+}
+
+.nav-disabled {
+    background-color: #eeeeee;
+    color: #777777;
+}
+
+/* 공통 모달 스타일 (선생님 사진 / 작품 확대 모두 사용) */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.modal-content {
+    position: relative;
+    z-index: 101;
+    padding: 8px;
+    background: transparent;
+}
+
+.modal-image {
+    max-width: 80vw;
+    max-height: 80vh;
+    border-radius: 16px;
+    background-color: #ffffff;
 }
