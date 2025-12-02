@@ -1,83 +1,137 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>{{ name }} 작품 갤러리</title>
+    <meta charset="UTF-8" />
+    <title>{{ name }} - ArtLab 2025 Digital Museum</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body>
-
-<header class="top-bar">
-    <a href="{{ url_for('home') }}" class="logo-title">
-        <img src="{{ url_for('static', filename='gochon-logo.png') }}" class="school-logo" alt="Gochon High School Logo">
-        <span class="site-title">ArtLab 2025 Digital Gallery</span>
-    </a>
-
-    <div class="teacher-info">
-        <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
-             class="teacher-photo" id="teacher-photo" alt="지도교사 한지민">
-        <div class="teacher-name">지도교사 : 한지민</div>
-    </div>
-</header>
-
-<!-- 지도교사 사진 팝업 모달 -->
-<div id="teacher-modal" class="modal">
-    <span class="modal-close">&times;</span>
-    <img class="modal-content" id="teacher-modal-img" alt="지도교사 사진 크게 보기">
-</div>
-
-<div class="page-container">
-
-    <h2 class="main-title">{{ name }} 작품 갤러리</h2>
-    <p class="intro-text">
-        아래의 두 작품 영역에는 실제 작품 이미지와 작품 설명이 들어갈 예정입니다.
-        현재는 테스트용 문구이며, 작품 제목과 설명은 추후 업데이트될 예정입니다.
-    </p>
-
-    <!-- 작품 1번/2번 : 세로(위–아래) 배치 -->
-    <div class="art-column">
-
-        <!-- 1번 작품 -->
-        <div class="art-card">
-            <div class="art-img">1번 작품 (이미지 자리)</div>
-            <h4>1번 작품 제목 (예시)</h4>
-            <p>
-                이 영역에는 1번 작품의 제목과 상세한 작품 설명이 들어갈 예정입니다.
-                지금은 예시 문장으로 채워져 있습니다.
-            </p>
-            <button class="like-btn">❤️ 좋아요 0</button>
+    <!-- 상단 헤더 (메인과 동일) -->
+    <header class="header">
+        <div class="header-left">
+            <img src="{{ url_for('static', filename='gochon-logo.png') }}"
+                 alt="Gochon High School Logo"
+                 class="logo">
         </div>
 
-        <!-- 2번 작품 -->
-        <div class="art-card">
-            <div class="art-img">2번 작품 (이미지 자리)</div>
-            <h4>2번 작품 제목 (예시)</h4>
-            <p>
-                이 영역에는 2번 작품의 제목과 상세한 작품 설명이 들어갈 예정입니다.
-                지금은 예시 문장으로 채워져 있습니다.
-            </p>
-            <button class="like-btn">❤️ 좋아요 0</button>
+        <div class="header-center">
+            <a href="{{ url_for('home') }}" class="header-title-link">
+                <h1 class="header-title">ArtLab 2025 Digital Museum</h1>
+            </a>
         </div>
 
+        <div class="header-right">
+            <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
+                 alt="지도교사 한지민"
+                 class="teacher-photo"
+                 id="teacher-photo">
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="section">
+            <h2 class="section-title">{{ name }} 학생 작품입니다.</h2>
+
+            <!-- 작품 1번 / 2번: 세로 이미지 두 개가 양옆으로 나란히 배치 -->
+            <div class="artwork-row">
+                <div class="artwork">
+                    <h3 class="artwork-title">작품 1번입니다.</h3>
+                    <img src="{{ url_for('static', filename='sample-art-1.jpg') }}"
+                         alt="작품 1번"
+                         class="artwork-image"
+                         data-artwork="1">
+                </div>
+
+                <div class="artwork">
+                    <h3 class="artwork-title">작품 2번입니다.</h3>
+                    <img src="{{ url_for('static', filename='sample-art-2.jpg') }}"
+                         alt="작품 2번"
+                         class="artwork-image"
+                         data-artwork="2">
+                </div>
+            </div>
+
+            <!-- 하단 네비게이션 -->
+            <div class="student-nav">
+                {% if prev_name %}
+                    <a href="{{ url_for('student_page', name=prev_name) }}"
+                       class="nav-link">← 이전 학생입니다. ({{ prev_name }})</a>
+                {% else %}
+                    <span class="nav-disabled">← 이전 학생이 없습니다.</span>
+                {% endif %}
+
+                <a href="{{ url_for('home') }}" class="nav-link">홈으로 돌아갑니다.</a>
+
+                {% if next_name %}
+                    <a href="{{ url_for('student_page', name=next_name) }}"
+                       class="nav-link">다음 학생입니다. ({{ next_name }}) →</a>
+                {% else %}
+                    <span class="nav-disabled">다음 학생이 없습니다. →</span>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+
+    <!-- 작품 확대 팝업 -->
+    <div class="modal" id="art-modal">
+        <div class="modal-backdrop" id="art-modal-backdrop"></div>
+        <div class="modal-content">
+            <img src="" alt="작품 확대" class="modal-image" id="art-modal-image">
+        </div>
     </div>
 
-    <!-- 이전 / 홈 / 다음 네비게이션 -->
-    <div class="nav-row">
-        {% if prev_name %}
-        <a href="/student/{{ prev_name }}" class="nav-btn">← 이전 ({{ prev_name }})</a>
-        {% endif %}
-
-        <a href="{{ url_for('home') }}" class="nav-btn">홈으로</a>
-
-        {% if next_name %}
-        <a href="/student/{{ next_name }}" class="nav-btn">다음 ({{ next_name }}) →</a>
-        {% endif %}
+    <!-- 선생님 사진 팝업 (학생 페이지에서도 동일하게 작동) -->
+    <div class="modal" id="teacher-modal">
+        <div class="modal-backdrop" id="teacher-modal-backdrop"></div>
+        <div class="modal-content">
+            <img src="{{ url_for('static', filename='teacher-hanjimin.jpg') }}"
+                 alt="지도교사 한지민 확대"
+                 class="modal-image">
+        </div>
     </div>
 
-</div>
+    <script>
+        // 작품 이미지 클릭 시 확대
+        const artImages = document.querySelectorAll(".artwork-image");
+        const artModal = document.getElementById("art-modal");
+        const artModalImg = document.getElementById("art-modal-image");
+        const artBackdrop = document.getElementById("art-modal-backdrop");
 
-<script src="{{ url_for('static', filename='popup.js') }}"></script>
+        artImages.forEach((img) => {
+            img.addEventListener("click", () => {
+                artModalImg.src = img.src;
+                artModal.classList.add("show");
+            });
+        });
 
+        if (artBackdrop && artModal) {
+            artBackdrop.addEventListener("click", () => {
+                artModal.classList.remove("show");
+            });
+        }
+
+        // ESC 키로 작품 팝업 닫기
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                if (artModal) artModal.classList.remove("show");
+                if (teacherModal) teacherModal.classList.remove("show");
+            }
+        });
+
+        // 선생님 사진 팝업
+        const teacherPhoto = document.getElementById("teacher-photo");
+        const teacherModal = document.getElementById("teacher-modal");
+        const teacherBackdrop = document.getElementById("teacher-modal-backdrop");
+
+        if (teacherPhoto && teacherModal && teacherBackdrop) {
+            teacherPhoto.addEventListener("click", () => {
+                teacherModal.classList.add("show");
+            });
+
+            teacherBackdrop.addEventListener("click", () => {
+                teacherModal.classList.remove("show");
+            });
+        }
+    </script>
 </body>
 </html>
